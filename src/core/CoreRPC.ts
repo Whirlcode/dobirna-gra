@@ -47,6 +47,9 @@ class CoreRPC {
                 this.ws.onopen = null
             }
         }
+        this.ws.onerror = () => {
+            throw new Error('An error occurs when working with WebSocket');
+        }
     }
 
     close() {

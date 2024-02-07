@@ -4,13 +4,11 @@ import { StyledEngineProvider } from '@mui/joy/styles';
 import App from './App'
 
 import { Provider } from 'react-redux'
-import { makeStore, AppStore } from '@app/Store'
-
-export const mainAppStore = makeStore() as AppStore;
+import { appStore } from '@app/Store'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Provider store={mainAppStore}>
+    <Provider store={appStore}>
       <StyledEngineProvider injectFirst>
         <App />
       </StyledEngineProvider>

@@ -7,6 +7,8 @@ import { router } from '@app/Router';
 
 import DefaultBackground from '@app/components/Background'
 import ThemeToggle from '@app/components/ThemeToggle';
+import NotificationCenter from '@app/features/notifications/NotificationCenter';
+
 import { useEffect } from 'react';
 
 import RoomRPC from '@app/core/GameRPC';
@@ -30,6 +32,7 @@ export default function App() {
       <DefaultBackground />
       <ThemeToggle />
       <RouterProvider router={router} />
+      <NotificationCenter/>
     </CssVarsProvider>
   )
 }

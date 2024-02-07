@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch, useStore, useSelector, TypedUseSelectorHook } from 'react-redux'
+import notificationSlice from '@app/features/notifications/notificationSlice'
 
 export const appStore = configureStore({
   reducer: {
+    notification: notificationSlice
   },
 })
 

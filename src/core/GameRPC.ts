@@ -6,7 +6,7 @@ class GameRequestHandler implements RequestHandler {
     }
 
     request_failed(error: string) {
-        console.error(error)
+        throw new Error(error);
     }
 }
 

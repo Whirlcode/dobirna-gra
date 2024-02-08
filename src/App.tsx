@@ -1,9 +1,9 @@
-import { CssVarsProvider } from '@mui/joy/styles';
-import GlobalStyles from '@mui/joy/GlobalStyles';
-import CssBaseline from '@mui/joy/CssBaseline';
+import { CssVarsProvider } from "@mui/joy/styles";
+import GlobalStyles from "@mui/joy/GlobalStyles";
+import CssBaseline from "@mui/joy/CssBaseline";
 
-import { RouterProvider } from 'react-router-dom';
-import { router } from '@app/Router';
+import { RouterProvider } from "react-router-dom";
+import { router } from "@app/Router";
 
 import DefaultBackground from '@app/components/Background'
 import ThemeToggle from '@app/components/ThemeToggle';
@@ -14,7 +14,6 @@ import { useEffect } from 'react';
 import RoomRPC from '@app/core/GameRPC';
 
 export default function App() {
-
   useEffect(() => {
     RoomRPC.connect(() => {
       RoomRPC.refresh_status()
@@ -26,13 +25,13 @@ export default function App() {
       <CssBaseline />
       <GlobalStyles
         styles={{
-          ':root': {
-          },
-        }} />
+          ":root": {},
+        }}
+      />
       <DefaultBackground />
       <ThemeToggle />
       <RouterProvider router={router} />
       <NotificationCenter/>
     </CssVarsProvider>
-  )
+  );
 }

@@ -1,7 +1,7 @@
 import { Box, Card } from "@mui/joy";
 import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
-import defImg from "../maxresdefault.jpg";
+import defaultImage from "../assets/maxresdefault.jpg";
 import KeyIcon from "@mui/icons-material/Key";
 import { styled } from "@mui/joy";
 import AspectRatio from "@mui/joy/AspectRatio";
@@ -22,7 +22,7 @@ const VisuallyHiddenInput = styled("input")`
 `;
 
 export default function EnterLobbyTab() {
-  const [userImg, setUserImg] = useState<string>(defImg);
+  const [userImg, setUserImg] = useState<string>(defaultImage);
   const navigate = useNavigate();
 
   const handleImageChange = (files: FileList | null) => {

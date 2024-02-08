@@ -1,8 +1,9 @@
-import { AspectRatio, Box, Button, Card, Input } from "@mui/joy";
+import { AspectRatio, Box, Button, Card, Input, Typography } from "@mui/joy";
 import FloatingInput from "./FloatingInput";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import defImg from "../maxresdefault.jpg";
+import defaultImage from "../assets/maxresdefault.jpg";
+import InputWithoutArrows from "./InputWithoutArrows";
 
 import { styled } from "@mui/joy";
 
@@ -17,7 +18,7 @@ const VisuallyHiddenInput = styled("input")`
 `;
 
 export default function CreateLobbyTab() {
-  const [userImg, setUserImg] = useState<string>(defImg);
+  const [userImg, setUserImg] = useState<string>(defaultImage);
   const [playerCount, setPlayerCount] = useState<number>(0);
   const navigate = useNavigate();
 
@@ -95,16 +96,21 @@ export default function CreateLobbyTab() {
             type="text"
             placeholder="Name room"
           ></Input>
-          <Input
-            sx={{ minHeight: 60 }}
-            variant="outlined"
-            color={playerCount >= 10 ? "danger" : "neutral"}
-            type="number"
-            placeholder="Count of players"
-            onChange={(e) => {
-              setPlayerCount(+e.target.value);
-            }}
-          ></Input>
+          <InputWithoutArrows
+            count={playerCount}
+            setCount={setPlayerCount}
+          ></InputWithoutArrows>{" "}
+          {playerCount > 10 && (
+            <Typography
+              sx={{ padding: "10px, 0px ,10px, 0px" }}
+              color="danger"
+              level="body-sm"
+              noWrap
+              variant="plain"
+            >
+              10 is Maximum players
+            </Typography>
+          )}
           <Button
             sx={{
               ":hover": {

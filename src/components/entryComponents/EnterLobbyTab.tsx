@@ -1,12 +1,12 @@
 import { Box, Card } from "@mui/joy";
 import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
-import defaultImage from "../assets/maxresdefault.jpg";
+import defaultImage from "@app/assets/maxresdefault.jpg";
 import KeyIcon from "@mui/icons-material/Key";
 import { styled } from "@mui/joy";
 import AspectRatio from "@mui/joy/AspectRatio";
 
-import FloatingInput from "@app/components/FloatingInput";
+import FloatingInput from "@app/components/entryComponents/FloatingInput";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";

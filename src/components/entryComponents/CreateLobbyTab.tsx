@@ -1,8 +1,8 @@
 import { AspectRatio, Box, Button, Card, Input, Typography } from "@mui/joy";
-import FloatingInput from "./FloatingInput";
+import FloatingInput from "@app/components/entryComponents/FloatingInput";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import defaultImage from "../assets/maxresdefault.jpg";
+import defaultImage from "@app/assets/maxresdefault.jpg";
 import InputWithoutArrows from "./InputWithoutArrows";
 
 import { styled } from "@mui/joy";

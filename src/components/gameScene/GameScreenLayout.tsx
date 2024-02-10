@@ -1,9 +1,9 @@
 import { Box, IconButton } from "@mui/joy";
-import GameMasterCard from "./GameMasterCard";
-import MainTimer from "./MainTimer";
+import GameMasterCard from "@app/components/gameScene/GameMasterCard";
+import MainTimer from "@app/components/gameScene/MainTimer";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
-import SoundSlide from "./SoundSlide";
-import BigAnswerButton from "./BigAnswerButton";
+import SoundSlide from "@app/components/gameScene/SoundSlide";
+import BigAnswerButton from "@app/components/gameScene/BigAnswerButton";
 import { useState } from "react";
 
 export default function GameScreenLayout() {

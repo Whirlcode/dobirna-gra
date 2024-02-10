@@ -10,7 +10,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/joy";
-import defaultImage from "../assets/maxresdefault.jpg";
+import defaultImage from "@app/assets/maxresdefault.jpg";
 import { useEffect, useRef, useState } from "react";
 
 export default function PlayerCard({

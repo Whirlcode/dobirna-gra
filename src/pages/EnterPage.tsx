@@ -3,8 +3,8 @@ import Tab from "@mui/joy/Tab";
 import Tabs from "@mui/joy/Tabs";
 import TabList from "@mui/joy/TabList";
 import { useState } from "react";
-import EnterLobbyTab from "@app/components/EnterLobbyTab";
-import CreateLobbyTab from "@app/components/CreateLobbyTab";
+import EnterLobbyTab from "@app/components/entryComponents/EnterLobbyTab";
+import CreateLobbyTab from "@app/components/entryComponents/CreateLobbyTab";
 
 enum ETabs {
   EnterLobby,
@@ -77,7 +77,7 @@ export default function EnterPage() {
         sx={{
           display: "flex",
           width: "100%",
-          py: 20,
+          padding: "100px",
           borderRadius: "xs",
         }}
       >

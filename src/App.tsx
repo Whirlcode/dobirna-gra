@@ -5,12 +5,12 @@ import CssBaseline from "@mui/joy/CssBaseline";
 import { RouterProvider } from "react-router-dom";
 import { router } from "@app/Router";
 
-import DefaultBackground from "@app/components/Background";
-import ThemeToggle from "@app/components/ThemeToggle";
+import DefaultBackground from "@app/components/base/Background";
+import ThemeToggle from "@app/components/base/ThemeToggle";
 import { useEffect } from "react";
 
 import RoomRPC from "@app/core/GameRPC";
-import NotificationCenter from "./features/notifications/NotificationCenter";
+import NotificationCenter from "@app/features/notifications/NotificationCenter";
 
 export default function App() {
   useEffect(() => {

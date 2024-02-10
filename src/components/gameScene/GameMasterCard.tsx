@@ -1,6 +1,6 @@
 import { AspectRatio, Box, Card, Typography } from "@mui/joy";
-import defaultImage from "../assets/maxresdefault.jpg";
-import { TextOfGameMaster } from "./TextOfGameMaster";
+import defaultImage from "@app/assets/maxresdefault.jpg";
+import { TextOfGameMaster } from "@app/components/gameScene/TextOfGameMaster";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 export default function GameMasterCard() {

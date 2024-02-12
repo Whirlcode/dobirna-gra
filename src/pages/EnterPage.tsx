@@ -77,7 +77,7 @@ export default function EnterPage() {
         sx={{
           display: "flex",
           width: "100%",
-          padding: "100px",
+          marginTop: "50px",
           borderRadius: "xs",
         }}
       >
@@ -85,9 +85,7 @@ export default function EnterPage() {
           sx={{
             display: "flex",
             flexDirection: "column",
-            alignSelf: "center",
             mx: "auto",
-            py: 3,
           }}
         >
           <TabsPanel

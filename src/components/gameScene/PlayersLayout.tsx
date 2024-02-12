@@ -14,7 +14,6 @@ export default function PlayersLayout({
           position: "relative",
           padding: "10px",
           borderRadius: 25,
-          height: "100%",
           width: "100%",
           gap: 4,
           flexWrap: "wrap",

@@ -16,9 +16,11 @@ import { useEffect, useRef, useState } from "react";
 export default function PlayerCard({
   initialVal,
   step,
+  playerName,
 }: {
   initialVal: number;
   step: number;
+  playerName: string;
 }) {
   const [milisec, setMilisec] = useState(initialVal);
   const [openContextMenu, setOpenContextMenu] = useState(false);
@@ -67,12 +69,13 @@ export default function PlayerCard({
           sx={{
             display: "flex",
             minWidth: "150px",
-            maxWidth: "180px",
+            maxWidth: "190px",
             height: "250px",
             alignItems: "center",
-            padding: 0,
+            padding: "10px",
             gap: 0,
             border: 0,
+            ...(openContextMenu && { boxShadow: "0px 0px 20px 10px aqua" }),
           }}
         >
           {openContextMenu && (
@@ -110,13 +113,14 @@ export default function PlayerCard({
               />
             </Box>
           )}
-          <AspectRatio minHeight={180} sx={{ minWidth: 180 }}>
+          <AspectRatio minHeight={170} sx={{ minWidth: 170 }}>
             <img src={defaultImage} loading="lazy" alt="" />
           </AspectRatio>
           <Box
             sx={{
               display: "flex",
               flexDirection: "column",
+              height: "100%",
               width: "100%",
             }}
           >
@@ -129,11 +133,11 @@ export default function PlayerCard({
                   overflow: "hidden",
                   whiteSpace: "nowrap",
                   textOverflow: "ellipsis",
-                  fontSize: "1vw",
+                  fontSize: "1.2vw",
                   fontWeight: "700",
                 }}
               >
-                Player Name
+                {playerName}
               </Typography>
             </Tooltip>
 
@@ -162,8 +166,9 @@ export default function PlayerCard({
             onClick={() => setOpenContextMenu((v) => !v)}
             sx={{
               position: "absolute",
-              height: "180px",
-              width: 180,
+              p: 0,
+              height: 170,
+              width: 170,
               ":hover": { backgroundColor: "rgba(187, 222, 251, 0.3)" },
             }}
             component="label"

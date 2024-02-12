@@ -12,7 +12,7 @@ export default function GamePage() {
         sx={{
           display: "flex",
           flexDirection: "column",
-          height: "100vh",
+          height: "100%",
           width: "100%",
           alignItems: "center",
         }}
@@ -21,7 +21,7 @@ export default function GamePage() {
         <DrawerMain />
 
         <PlayersLayout>
-          <PlayerCard initialVal={60000} step={10}></PlayerCard>
+          <PlayerCard initialVal={60000} step={900} playerName={"Random"} />
         </PlayersLayout>
       </Box>
     </>

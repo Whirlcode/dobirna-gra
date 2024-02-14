@@ -6,9 +6,17 @@ import FloatingInput from "@app/components/entryComponents/FloatingInput";
 
 import { useNavigate } from "react-router-dom";
 import UploadImgButton from "@app/components/entryComponents/UploadImgButton";
+import { useAppDispatch } from "@app/Store";
+import {
+  addInviteLink,
+  addPlayerToLobby,
+} from "@app/features/userInfo/userInfoSlice";
+import { useRef } from "react";
 
 export default function EnterLobbyTab() {
+  const invLink = useRef<string>();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   return (
     <>
@@ -34,6 +42,7 @@ export default function EnterLobbyTab() {
         </Box>
 
         <Input
+          onChange={(e) => (invLink.current = e.target.value)}
           startDecorator={<KeyIcon />}
           endDecorator={
             <Button
@@ -45,10 +54,12 @@ export default function EnterLobbyTab() {
             </Button>
           }
           placeholder="Invite code"
-        ></Input>
+        />
         <Button
           sx={{ display: "flex" }}
           onClick={() => {
+            dispatch(addInviteLink(invLink));
+            dispatch(addPlayerToLobby());
             navigate("/game");
           }}
         >

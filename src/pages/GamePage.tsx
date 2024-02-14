@@ -1,3 +1,4 @@
+import { useAppSelector } from "@app/Store";
 import DrawerMain from "@app/components/gameScene/DrawerMain";
 
 import GameScreenLayout from "@app/components/gameScene/GameScreenLayout";
@@ -6,6 +7,7 @@ import PlayersLayout from "@app/components/gameScene/PlayersLayout";
 import { Box } from "@mui/joy";
 
 export default function GamePage() {
+  const gameLobby = useAppSelector((s) => s.userInfo.gameLobby);
   return (
     <>
       <Box
@@ -21,7 +23,21 @@ export default function GamePage() {
         <DrawerMain />
 
         <PlayersLayout>
-          <PlayerCard initialVal={60000} step={900} playerName={"Random"} />
+          {gameLobby.map((player) => {
+            if (!player.isGameMaster) {
+              return (
+                <>
+                  <PlayerCard
+                    key={player.id}
+                    initialVal={60000}
+                    step={900}
+                    playerName={player.name}
+                    playerImg={player.img}
+                  />
+                </>
+              );
+            }
+          })}
         </PlayersLayout>
       </Box>
     </>

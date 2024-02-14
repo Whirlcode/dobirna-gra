@@ -5,8 +5,8 @@ import Button from '@mui/joy/Button';
 import { pushNotification, popNotification, NotificationEntry } from './notificationSlice'
 import { useAppSelector, useAppDispatch, appStore } from '@app/Store';
 
-function errorHandler(event : ErrorEvent) {
-    appStore.dispatch(pushNotification({message: `${event.message}`, details: `${event.error.stack}`, durationMs: 4000} as NotificationEntry))
+function errorHandler(event: ErrorEvent) {
+    appStore.dispatch(pushNotification({ message: `${event.message}`, details: `${event.error.stack}`, durationMs: 4000 } as NotificationEntry))
 }
 
 export default function NotificationCenter() {
@@ -27,7 +27,7 @@ export default function NotificationCenter() {
                 open={true}
                 autoHideDuration={msg.durationMs}
                 onClose={(_, r) => {
-                    if(r == "timeout"){
+                    if (r == "timeout") {
                         dispatch(popNotification(msg.id))
                     }
                 }}
@@ -46,7 +46,7 @@ export default function NotificationCenter() {
                     marginBottom: 10 * index
                 }}>
                 {msg.message}
-                <br/>
+                <br />
                 {msg.details && <>{msg.details}</>}
             </Snackbar>)}
         </Fragment>

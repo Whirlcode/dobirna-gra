@@ -1,6 +1,7 @@
+import { useAppDispatch } from "@app/Store";
+import { addImgPlayer } from "@app/features/userInfo/userInfoSlice";
 import { AspectRatio, Box, Button, styled } from "@mui/joy";
-import { useState } from "react";
-import defaultImage from "@app/assets/maxresdefault.jpg";
+import { useEffect, useState } from "react";
 
 const VisuallyHiddenInput = styled("input")`
   height: 1px;
@@ -13,13 +14,21 @@ const VisuallyHiddenInput = styled("input")`
 `;
 
 export default function UploadImgButton() {
-  const [userImg, setUserImg] = useState<string>(defaultImage);
+  const [userImg, setUserImg] = useState<string>(
+    "https://placehold.co/600x400?text=Choose+your+picture"
+  );
+  const dispatch = useAppDispatch();
 
   const handleImageChange = (files: FileList | null) => {
     if (files === null) return;
     const file = files[0];
     setUserImg(URL.createObjectURL(file));
   };
+
+  useEffect(() => {
+    dispatch(addImgPlayer(userImg));
+  }, [dispatch, userImg]);
+
   return (
     <>
       <Box
@@ -34,7 +43,7 @@ export default function UploadImgButton() {
             zIndex: 5,
             height: 300,
             width: "280px",
-            ":hover": { backgroundColor: "rgba(231, 231, 231, 0.33)" },
+            ":hover": { backgroundColor: "rgba(79, 79, 79, 0.3)" },
           }}
           component="label"
           tabIndex={-1}

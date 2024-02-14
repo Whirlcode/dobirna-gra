@@ -1,6 +1,8 @@
+import { useAppSelector } from "@app/Store";
 import { Box, Button, Typography } from "@mui/joy";
 
 export default function IdleStageOfGame() {
+  const { createdBy, me } = useAppSelector((s) => s.userInfo);
   const inviteURL = `https://dobirna-gra/game?room={${"ID_OF_ROOM"}}`;
   const packName = "Some random pack name";
   const numberOfRounds = "8";
@@ -51,20 +53,20 @@ export default function IdleStageOfGame() {
           mt: "5vh",
         }}
       >
-        <Button
-          color="primary"
-          sx={{
-            height: "80px",
-            width: "600px",
-            ":hover": {
-              backgroundColor: "rgb(165, 255, 253)",
-            },
-          }}
-        >
-          <Typography color="success" level="h1" variant="plain">
-            Ready
-          </Typography>
-        </Button>
+        {createdBy !== me &&
+          <Button
+            color="primary"
+            sx={{
+              height: "80px",
+              width: "600px",
+              ":hover": {
+                backgroundColor: "rgb(165, 255, 253)",
+              }
+            }}>
+            <Typography color="success" level="h1" variant="plain">
+              Ready
+            </Typography>
+          </Button>}
       </Box>
     </Box>
   );

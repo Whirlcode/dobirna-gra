@@ -6,6 +6,8 @@ import InputWithoutArrows from "./InputWithoutArrows";
 
 import { styled } from "@mui/joy";
 import UploadImgButton from "./UploadImgButton";
+import { useAppDispatch } from "@app/Store";
+import { addGameMasterToLobby } from "@app/features/userInfo/userInfoSlice";
 
 const VisuallyHiddenInput = styled("input")`
   height: 1px;
@@ -20,6 +22,7 @@ const VisuallyHiddenInput = styled("input")`
 export default function CreateLobbyTab() {
   const [playerCount, setPlayerCount] = useState<number>(0);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   return (
     <>
@@ -89,6 +92,7 @@ export default function CreateLobbyTab() {
           sx={{ display: "flex" }}
           onClick={() => {
             navigate("/game");
+            dispatch(addGameMasterToLobby());
           }}
         >
           Create new room

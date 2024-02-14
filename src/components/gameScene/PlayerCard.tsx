@@ -1,3 +1,4 @@
+import { useAppSelector } from "@app/Store";
 import {
   AspectRatio,
   Badge,
@@ -10,20 +11,22 @@ import {
   Tooltip,
   Typography,
 } from "@mui/joy";
-import defaultImage from "@app/assets/maxresdefault.jpg";
 import { useEffect, useRef, useState } from "react";
 
 export default function PlayerCard({
   initialVal,
   step,
   playerName,
+  playerImg,
 }: {
   initialVal: number;
   step: number;
   playerName: string;
+  playerImg: string;
 }) {
   const [milisec, setMilisec] = useState(initialVal);
   const [openContextMenu, setOpenContextMenu] = useState(false);
+  const { createdBy, me } = useAppSelector((s) => s.userInfo);
   const playerPoints = useRef<string>("0");
 
   const converter = (curr: number, targ: number) => {
@@ -43,7 +46,7 @@ export default function PlayerCard({
   return (
     <>
       <Badge
-        invisible={false}
+        invisible={true}
         variant="plain"
         badgeInset="0 5%"
         sx={{
@@ -90,10 +93,10 @@ export default function PlayerCard({
                 sx={{
                   minHeight: 60,
                   "input::-webkit-outer-spin-button, input::-webkit-inner-spin-button":
-                    {
-                      "-webkit-appearance": "none",
-                      margin: 0,
-                    },
+                  {
+                    "-webkit-appearance": "none",
+                    margin: 0,
+                  },
                   "input[type=number]": {
                     "-moz-appearance": "textfield",
                   },
@@ -114,7 +117,7 @@ export default function PlayerCard({
             </Box>
           )}
           <AspectRatio minHeight={170} sx={{ minWidth: 170 }}>
-            <img src={defaultImage} loading="lazy" alt="" />
+            <img src={playerImg} loading="lazy" alt="" />
           </AspectRatio>
           <Box
             sx={{
@@ -124,7 +127,7 @@ export default function PlayerCard({
               width: "100%",
             }}
           >
-            <Tooltip title={"Player Name"} size="md">
+            <Tooltip title={playerName} size="md">
               <Typography
                 variant="plain"
                 sx={{
@@ -161,20 +164,20 @@ export default function PlayerCard({
               {playerPoints.current}
             </Typography>
           </Box>
-
-          <Button
-            onClick={() => setOpenContextMenu((v) => !v)}
-            sx={{
-              position: "absolute",
-              p: 0,
-              height: 170,
-              width: 170,
-              ":hover": { backgroundColor: "rgba(187, 222, 251, 0.3)" },
-            }}
-            component="label"
-            variant="plain"
-            color="neutral"
-          ></Button>
+          {createdBy === me &&
+            <Button
+              onClick={() => setOpenContextMenu((v) => !v)}
+              sx={{
+                position: "absolute",
+                p: 0,
+                height: 170,
+                width: 170,
+                ":hover": { backgroundColor: "rgba(187, 222, 251, 0.3)" },
+              }}
+              component="label"
+              variant="plain"
+              color="neutral"
+            ></Button>}
         </Card>
       </Badge>
     </>

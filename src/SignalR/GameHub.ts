@@ -29,6 +29,7 @@ connection.on("OnServerError", (str) => {
 })
 
 connection.start().then(async () => {
+    await connection.send("UpdateProfile", { Name: "Julian"} as Message.UpdateProfileAction)
     await connection.send("CreateLobby", { Name: "Test" } as Message.CreateLobbyAction);
     //await connection.send("JoinLobby", { InviteCode: "---" } as Message.JoinLobbyAction);
 })

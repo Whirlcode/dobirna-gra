@@ -7,6 +7,10 @@ export type JoinLobbyAction = {
     InviteCode: string
 }
 
+export type UpdateProfileAction = {
+    Name: string | undefined
+}
+
 export type UserInfo = {
     Id: string,
     Name: string

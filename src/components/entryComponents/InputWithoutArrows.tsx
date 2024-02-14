@@ -29,7 +29,7 @@ export default function InputWithoutArrows({
         onChange={(e) => {
           setCount(+e.target.value);
         }}
-      ></Input>
+      />
     </>
   );
 }

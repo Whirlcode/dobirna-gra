@@ -1,32 +1,28 @@
-import { AspectRatio, Box, Button, Card, Input, Typography } from "@mui/joy";
+import { Box, Button, Card, Input, Typography } from "@mui/joy";
 import FloatingInput from "@app/components/entryComponents/FloatingInput";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import defaultImage from "@app/assets/maxresdefault.jpg";
 import InputWithoutArrows from "./InputWithoutArrows";
 
 import { styled } from "@mui/joy";
+import UploadImgButton from "./UploadImgButton";
+import { useAppDispatch } from "@app/Store";
+import { addGameMasterToLobby } from "@app/features/userInfo/userInfoSlice";
 
 const VisuallyHiddenInput = styled("input")`
   height: 1px;
+  width: 1px;
   overflow: hidden;
   position: absolute;
   bottom: 0;
   left: 0;
   white-space: nowrap;
-  width: 1px;
 `;
 
 export default function CreateLobbyTab() {
-  const [userImg, setUserImg] = useState<string>(defaultImage);
   const [playerCount, setPlayerCount] = useState<number>(0);
   const navigate = useNavigate();
-
-  const handleImageChange = (files: FileList | null) => {
-    if (files === null) return;
-    const file = files[0];
-    setUserImg(URL.createObjectURL(file));
-  };
+  const dispatch = useAppDispatch();
 
   return (
     <>
@@ -47,39 +43,7 @@ export default function CreateLobbyTab() {
             width: "100%",
           }}
         >
-          <Box
-            sx={{
-              minWidth: 200,
-              minHeight: 300,
-            }}
-          >
-            <Button
-              sx={{
-                position: "absolute",
-                zIndex: 5,
-                height: 300,
-                width: 200,
-                ":hover": { backgroundColor: "rgba(231, 231, 231, 0.33)" },
-              }}
-              component="label"
-              role={undefined}
-              tabIndex={-1}
-              variant="outlined"
-              color="neutral"
-            >
-              <VisuallyHiddenInput
-                type="file"
-                onChange={(e) => handleImageChange(e.target.files)}
-              />
-            </Button>
-            <AspectRatio minHeight={300}>
-              <img
-                style={{ maxHeight: 300, maxWidth: 200 }}
-                src={userImg}
-                alt="image not found"
-              />
-            </AspectRatio>
-          </Box>
+          <UploadImgButton />
           <FloatingInput label="Name" placeholder="John Doe" />
         </Box>
         <Box
@@ -91,15 +55,8 @@ export default function CreateLobbyTab() {
             maxWidth: "50%",
           }}
         >
-          <Input
-            sx={{ minHeight: 60 }}
-            type="text"
-            placeholder="Name room"
-          ></Input>
-          <InputWithoutArrows
-            count={playerCount}
-            setCount={setPlayerCount}
-          ></InputWithoutArrows>{" "}
+          <Input sx={{ minHeight: 60 }} type="text" placeholder="Name room" />
+          <InputWithoutArrows count={playerCount} setCount={setPlayerCount} />
           {playerCount > 10 && (
             <Typography
               sx={{ padding: "10px, 0px ,10px, 0px" }}
@@ -126,7 +83,7 @@ export default function CreateLobbyTab() {
           >
             <VisuallyHiddenInput
               type="file"
-              onChange={(e) => handleImageChange(e.target.files)}
+              onChange={() => console.log("You choosed a pack")}
             />
             Choose pack file
           </Button>
@@ -135,6 +92,7 @@ export default function CreateLobbyTab() {
           sx={{ display: "flex" }}
           onClick={() => {
             navigate("/game");
+            dispatch(addGameMasterToLobby());
           }}
         >
           Create new room

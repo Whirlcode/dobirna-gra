@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useRef } from "react";
 import { styled } from "@mui/joy/styles";
 import Input from "@mui/joy/Input";
+import { useAppDispatch } from "@app/Store";
+import { addNamePlayer } from "@app/features/userInfo/userInfoSlice";
 
 const StyledInput = styled("input")({
   border: "none",
@@ -25,10 +27,10 @@ const StyledInput = styled("input")({
     opacity: 1,
   },
   "&:focus ~ label, &:not(:placeholder-shown) ~ label, &:-webkit-autofill ~ label":
-    {
-      top: "0.5rem",
-      fontSize: "0.75rem",
-    },
+  {
+    top: "0.5rem",
+    fontSize: "0.75rem",
+  },
   "&:focus ~ label": {
     color: "var(--Input-focusedHighlight)",
   },
@@ -77,8 +79,12 @@ interface FloatingInputProps {
 }
 
 export default function FloatingInput(props: FloatingInputProps) {
+  const dispatch = useAppDispatch();
+  const playerName = useRef<string>();
   return (
     <Input
+      onChange={(e) => (playerName.current = e.target.value)}
+      onBlur={() => dispatch(addNamePlayer(playerName))}
       slots={{ input: InnerInput }}
       slotProps={{
         input: { placeholder: props.placeholder, label: props.label },

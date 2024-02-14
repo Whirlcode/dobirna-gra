@@ -20,7 +20,7 @@ const notificationSlice = createSlice({
     initialState,
     reducers: {
         pushNotification(state, action: PayloadAction<NotificationEntry>) {
-            state.messages.push({...action.payload, id: state.count})
+            state.messages.push({ ...action.payload, id: state.count })
             ++state.count
         },
         popNotification(state, action: PayloadAction<number>) {

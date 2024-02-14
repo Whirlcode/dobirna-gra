@@ -57,7 +57,7 @@ export default function DrawerMain() {
             <ModalClose />
             <DialogTitle>Settings </DialogTitle>
             <DialogContent sx={{ display: "flex", gap: 2 }}>
-              <SoundSlide></SoundSlide>
+              <SoundSlide />
             </DialogContent>
             <Box
               sx={{

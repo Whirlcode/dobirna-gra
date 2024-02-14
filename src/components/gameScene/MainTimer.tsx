@@ -42,6 +42,6 @@ export default function MainTimer({
         maxHeight: 40,
         minWidth: "100%",
       }}
-    ></LinearProgress>
+    />
   );
 }

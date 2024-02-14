@@ -1,54 +1,57 @@
-import { Box, IconButton } from "@mui/joy";
+import { Box } from "@mui/joy";
 import GameMasterCard from "@app/components/gameScene/GameMasterCard";
-import MainTimer from "@app/components/gameScene/MainTimer";
-import VolumeUpIcon from "@mui/icons-material/VolumeUp";
-import SoundSlide from "@app/components/gameScene/SoundSlide";
 import BigAnswerButton from "@app/components/gameScene/BigAnswerButton";
-import { useState } from "react";
+import IdleStageOfGame from "@app/components/gameScene/IdleStage.GameScreen";
+import { useAppSelector } from "@app/Store";
+import EmptyAdminPlace from "@app/components/gameScene/EmptyAdminPlace";
 
 export default function GameScreenLayout() {
-  const [openSoundSlide, setOpenSoundSlide] = useState(false);
+  const gameLobby = useAppSelector((s) => s.userInfo.gameLobby);
+  const { createdBy, me } = useAppSelector((s) => s.userInfo);
+
   return (
-    <Box sx={{ display: "flex", width: "100%", alignItems: "center" }}>
-      <BigAnswerButton />
+    <Box sx={{ display: "flex", width: "100%", flex: "1" }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          padding: "0px 10px",
+          marginTop: "auto",
+          gap: 2,
+        }}>
+        {createdBy !== me
+          ?
+          <BigAnswerButton />
+          :
+          <Box sx={{ width: "2vw" }} />
+        }
+      </Box>
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          minHeight: 650,
+          minHeight: "100%",
           width: "100%",
-          backgroundColor: "rgba(0, 54, 44, 0.1)",
+          backgroundColor: "rgba(255, 255, 255, 0.1)",
           position: "relative",
           padding: "10px",
           borderRadius: 25,
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            position: "absolute",
-            top: "10px",
-            left: "10px",
-          }}
-        >
-          <IconButton
-            sx={{
-              width: "80px",
-              height: "80px",
-            }}
-            onClick={() => setOpenSoundSlide((v) => !v)}
-          >
-            <VolumeUpIcon sx={{ width: "70px", height: "70px" }} />
-          </IconButton>
-          {openSoundSlide && <SoundSlide />}
-        </Box>
-
-        <MainTimer initialVal={60000} step={10}></MainTimer>
+        }}>
+        <IdleStageOfGame />
       </Box>
-      <Box sx={{ padding: "0px 20px" }}>
-        <GameMasterCard></GameMasterCard>
+      <Box
+        sx={{
+          display: "flex",
+          padding: "0px 20px",
+          marginTop: "10vh",
+        }}>
+        {gameLobby.some((user) => user.isGameMaster === true)
+          ?
+          <GameMasterCard />
+          :
+          <EmptyAdminPlace />
+        }
       </Box>
     </Box>
   );

@@ -1,3 +1,4 @@
+import { useAppSelector } from "@app/Store";
 import {
   AspectRatio,
   Badge,
@@ -10,18 +11,22 @@ import {
   Tooltip,
   Typography,
 } from "@mui/joy";
-import defaultImage from "@app/assets/maxresdefault.jpg";
 import { useEffect, useRef, useState } from "react";
 
 export default function PlayerCard({
   initialVal,
   step,
+  playerName,
+  playerImg,
 }: {
   initialVal: number;
   step: number;
+  playerName: string;
+  playerImg: string;
 }) {
   const [milisec, setMilisec] = useState(initialVal);
   const [openContextMenu, setOpenContextMenu] = useState(false);
+  const { createdBy, me } = useAppSelector((s) => s.userInfo);
   const playerPoints = useRef<string>("0");
 
   const converter = (curr: number, targ: number) => {
@@ -41,7 +46,7 @@ export default function PlayerCard({
   return (
     <>
       <Badge
-        invisible={false}
+        invisible={true}
         variant="plain"
         badgeInset="0 5%"
         sx={{
@@ -67,12 +72,13 @@ export default function PlayerCard({
           sx={{
             display: "flex",
             minWidth: "150px",
-            maxWidth: "180px",
+            maxWidth: "190px",
             height: "250px",
             alignItems: "center",
-            padding: 0,
+            padding: "10px",
             gap: 0,
             border: 0,
+            ...(openContextMenu && { boxShadow: "0px 0px 20px 10px aqua" }),
           }}
         >
           {openContextMenu && (
@@ -87,10 +93,10 @@ export default function PlayerCard({
                 sx={{
                   minHeight: 60,
                   "input::-webkit-outer-spin-button, input::-webkit-inner-spin-button":
-                    {
-                      "-webkit-appearance": "none",
-                      margin: 0,
-                    },
+                  {
+                    "-webkit-appearance": "none",
+                    margin: 0,
+                  },
                   "input[type=number]": {
                     "-moz-appearance": "textfield",
                   },
@@ -110,17 +116,18 @@ export default function PlayerCard({
               />
             </Box>
           )}
-          <AspectRatio minHeight={180} sx={{ minWidth: 180 }}>
-            <img src={defaultImage} loading="lazy" alt="" />
+          <AspectRatio minHeight={170} sx={{ minWidth: 170 }}>
+            <img src={playerImg} loading="lazy" alt="" />
           </AspectRatio>
           <Box
             sx={{
               display: "flex",
               flexDirection: "column",
+              height: "100%",
               width: "100%",
             }}
           >
-            <Tooltip title={"Player Name"} size="md">
+            <Tooltip title={playerName} size="md">
               <Typography
                 variant="plain"
                 sx={{
@@ -129,11 +136,11 @@ export default function PlayerCard({
                   overflow: "hidden",
                   whiteSpace: "nowrap",
                   textOverflow: "ellipsis",
-                  fontSize: "1vw",
+                  fontSize: "1.2vw",
                   fontWeight: "700",
                 }}
               >
-                Player Name
+                {playerName}
               </Typography>
             </Tooltip>
 
@@ -157,19 +164,20 @@ export default function PlayerCard({
               {playerPoints.current}
             </Typography>
           </Box>
-
-          <Button
-            onClick={() => setOpenContextMenu((v) => !v)}
-            sx={{
-              position: "absolute",
-              height: "180px",
-              width: 180,
-              ":hover": { backgroundColor: "rgba(187, 222, 251, 0.3)" },
-            }}
-            component="label"
-            variant="plain"
-            color="neutral"
-          ></Button>
+          {createdBy === me &&
+            <Button
+              onClick={() => setOpenContextMenu((v) => !v)}
+              sx={{
+                position: "absolute",
+                p: 0,
+                height: 170,
+                width: 170,
+                ":hover": { backgroundColor: "rgba(187, 222, 251, 0.3)" },
+              }}
+              component="label"
+              variant="plain"
+              color="neutral"
+            ></Button>}
         </Card>
       </Badge>
     </>

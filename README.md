@@ -7,7 +7,7 @@ npm install
 npm run dev
 ```
 
-Full functionality also requires running [dobirna-gra-hub](https://github.com/Whirlcode/dobirna-gra-hub) locally.
+You can run [DobirnaGraServer](https://github.com/Whirlcode/DobirnaGraServer) locally.
 
 # Components used:
 - [React](https://react.dev/)

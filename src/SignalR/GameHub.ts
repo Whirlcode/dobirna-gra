@@ -1,5 +1,6 @@
 import * as signalR from "@microsoft/signalr";
 import * as msgpack from "@microsoft/signalr-protocol-msgpack"
+import * as Message from "@app/SignalR/MessageTypes"
 
 function getGameServerURL() {
     const useLocalServer = false;
@@ -15,10 +16,19 @@ const connection = new signalR.HubConnectionBuilder()
     .withAutomaticReconnect()
     .build();
 
-connection.on("OnGameStateChanged", () => {
-    console.log('Game State Changed')
+connection.on("OnProfileChanged", (me : Message.UserInfo) => {
+    console.log(`OnProfileChanged: ${JSON.stringify(me)}`)
 });
 
-connection.start().then(() => {
-    connection.send("JoinLobby", {});
+connection.on("OnLobbyStateChanged", (lobbyInfo : Message.LobbyInfo) => {
+    console.log(`OnLobbyStateChanged: ${JSON.stringify(lobbyInfo)}`)
 });
+
+connection.on("OnServerError", (str) => {
+    console.error(str)
+})
+
+connection.start().then(async () => {
+    await connection.send("CreateLobby", { Name: "Test" } as Message.CreateLobbyAction);
+    //await connection.send("JoinLobby", { InviteCode: "---" } as Message.JoinLobbyAction);
+})

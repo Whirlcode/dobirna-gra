@@ -1,11 +1,17 @@
 import * as signalR from "@microsoft/signalr";
 import * as msgpack from "@microsoft/signalr-protocol-msgpack"
-import * as Message from "@app/SignalR/MessageTypes"
+import {
+    LobbyInfo,
+    UserInfo,
+    UpdateProfileAction,
+    CreateLobbyAction,
+    JoinLobbyAction
+} from "@app/SignalR/MessageTypes"
 
 export interface IHubObserver {
-    onProfileChanged(lobbyInfo: Message.LobbyInfo): void,
-    onLobbyStateChanged(lobbyInfo: Message.LobbyInfo): void
-    onServerError(lobbyInfo: Message.LobbyInfo): void
+    onProfileChanged(me: UserInfo): void,
+    onLobbyStateChanged(lobbyInfo: LobbyInfo): void
+    onServerError(error: string): void
 }
 
 export interface IHubServer {
@@ -73,19 +79,19 @@ class HubServerImpl implements IHubServer {
     async updateProfileAsync(name?: string | undefined): Promise<void> {
         await this.connection.send("UpdateProfile", {
             Name: name
-        } as Message.UpdateProfileAction)
+        } as UpdateProfileAction)
     }
 
     async createLobbyAsync(name: string): Promise<void> {
         await this.connection.send("CreateLobby", {
             Name: name
-        } as Message.CreateLobbyAction);
+        } as CreateLobbyAction);
     }
 
     async joinLobbyAsync(inviteCode: string): Promise<void> {
         await this.connection.send("JoinLobby", {
             InviteCode: inviteCode
-        } as Message.JoinLobbyAction);
+        } as JoinLobbyAction);
     }
 }
 

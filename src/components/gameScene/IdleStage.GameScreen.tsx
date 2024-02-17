@@ -1,5 +1,6 @@
 import { useAppSelector } from "@app/Store";
-import { Box, Button, Typography } from "@mui/joy";
+import { Box, Typography } from "@mui/joy";
+import ReadyORStartBtn from "./shared/ReadyORStartBtn";
 
 export default function IdleStageOfGame() {
   const { createdBy, me } = useAppSelector((s) => s.userInfo);
@@ -53,20 +54,11 @@ export default function IdleStageOfGame() {
           mt: "5vh",
         }}
       >
-        {createdBy !== me &&
-          <Button
-            color="primary"
-            sx={{
-              height: "80px",
-              width: "600px",
-              ":hover": {
-                backgroundColor: "rgb(165, 255, 253)",
-              }
-            }}>
-            <Typography color="success" level="h1" variant="plain">
-              Ready
-            </Typography>
-          </Button>}
+        {createdBy !== me
+          ?
+          <ReadyORStartBtn text={'Ready'} />
+          :
+          <ReadyORStartBtn text={'Start the game'} />}
       </Box>
     </Box>
   );

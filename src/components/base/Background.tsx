@@ -27,7 +27,7 @@ export default function DefaultBackground() {
         color="transparent"
         sx={{
           height: "100vh",
-          width: "100w",
+          width: "100vw",
           position: "absolute",
           right: 0,
           top: 0,

@@ -1,5 +1,4 @@
 import { CssVarsProvider } from "@mui/joy/styles";
-import GlobalStyles from "@mui/joy/GlobalStyles";
 import CssBaseline from "@mui/joy/CssBaseline";
 
 import { RouterProvider } from "react-router-dom";
@@ -14,11 +13,6 @@ export default function App() {
   return (
     <CssVarsProvider defaultMode="dark">
       <CssBaseline />
-      <GlobalStyles
-        styles={{
-          ":root": {},
-        }}
-      />
       <DefaultBackground />
       <ThemeToggle />
       <RouterProvider router={router} />

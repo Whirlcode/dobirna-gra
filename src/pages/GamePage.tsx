@@ -2,12 +2,13 @@ import { useAppSelector } from "@app/Store";
 import DrawerMain from "@app/components/gameScene/DrawerMain";
 
 import GameScreenLayout from "@app/components/gameScene/GameScreenLayout";
-import PlayerCard from "@app/components/gameScene/PlayerCard";
-import PlayersLayout from "@app/components/gameScene/PlayersLayout";
+import PlayerCard from "@app/components/gameScene/playerComp/PlayerCard";
+import PlayersLayout from "@app/components/gameScene/playerComp/PlayersLayout";
+import EmptyPlayerPLace from "@app/components/gameScene/playerComp/emptyPlayerPlace";
 import { Box } from "@mui/joy";
 
 export default function GamePage() {
-  const gameLobby = useAppSelector((s) => s.userInfo.gameLobby);
+  const { gameLobby, createdBy, me } = useAppSelector((s) => s.userInfo);
   return (
     <>
       <Box
@@ -23,6 +24,7 @@ export default function GamePage() {
         <DrawerMain />
 
         <PlayersLayout>
+
           {gameLobby.map((player) => {
             if (!player.isGameMaster) {
               return (
@@ -38,6 +40,7 @@ export default function GamePage() {
               );
             }
           })}
+          {createdBy === me && <EmptyPlayerPLace />}
         </PlayersLayout>
       </Box>
     </>

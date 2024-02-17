@@ -1,9 +1,9 @@
 import { Box } from "@mui/joy";
-import GameMasterCard from "@app/components/gameScene/GameMasterCard";
-import BigAnswerButton from "@app/components/gameScene/BigAnswerButton";
+import GameMasterCard from "@app/components/gameScene/gameMasterComp/GameMasterCard";
+import BigAnswerButton from "@app/components/gameScene/shared/BigAnswerButton";
 import IdleStageOfGame from "@app/components/gameScene/IdleStage.GameScreen";
 import { useAppSelector } from "@app/Store";
-import EmptyAdminPlace from "@app/components/gameScene/EmptyAdminPlace";
+import EmptyAdminPlace from "@app/components/gameScene/gameMasterComp/EmptyAdminPlace";
 
 export default function GameScreenLayout() {
   const gameLobby = useAppSelector((s) => s.userInfo.gameLobby);

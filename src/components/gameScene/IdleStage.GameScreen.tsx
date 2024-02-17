@@ -17,32 +17,33 @@ export default function IdleStageOfGame() {
       }}
     >
       <Box sx={{ p: "20px" }}>
-        <Typography color="primary" level="h2" variant="plain">
+        <Typography level="h2">
           Invite link :
         </Typography>
 
-        <Typography color="success" level="h3" variant="plain">
+        <Typography
+          variant="solid"
+          level="h3"
+          sx={theme => ({ color: theme.vars.palette.primary[500], width: 'fit-content' })}>
           {inviteURL}
         </Typography>
       </Box>
       <Box sx={{ display: "flex", flexDirection: "column", my: 5, gap: 3 }}>
         <Typography
-          color="primary"
           fontWeight={700}
           fontSize={50}
           variant="plain"
           noWrap={false}
           textAlign={"center"}
-          sx={{ overflowWrap: "anywhere" }}
+          sx={theme => ({ overflowWrap: "anywhere", color: theme.vars.palette.neutral[400] })}
         >
           {packName}
         </Typography>
         <Typography
-          color="success"
           level="h1"
           variant="plain"
           textAlign={"center"}
-          sx={{ overflowWrap: "anywhere" }}
+          sx={theme => ({ overflowWrap: "anywhere", color: theme.vars.palette.primary[700] })}
         >
           {numberOfRounds} Rounds
         </Typography>

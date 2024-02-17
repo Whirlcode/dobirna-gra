@@ -27,17 +27,17 @@ export default function GameScreenLayout() {
         }
       </Box>
       <Box
-        sx={{
+        sx={(t) => ({
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           minHeight: "100%",
           width: "100%",
-          backgroundColor: "rgba(255, 255, 255, 0.1)",
+          backgroundColor: `rgba(${t.vars.palette.neutral.lightChannel} / 0.5)`,
           position: "relative",
           padding: "10px",
           borderRadius: 25,
-        }}>
+        })}>
         <IdleStageOfGame />
       </Box>
       <Box

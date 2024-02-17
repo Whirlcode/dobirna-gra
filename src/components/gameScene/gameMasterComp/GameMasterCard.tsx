@@ -107,23 +107,25 @@ function TextOfGameMaster() {
   return (
     <>
       <Box
-        sx={{
+        sx={(t) => ({
           display: "flex",
           minWidth: "fit-content",
           maxHeight: "35vh",
           border: "1px solid #ccc",
           padding: "5px",
           position: "absolute",
-          backgroundColor: "black",
-        }}>
+          backgroundColor: t.vars.palette.primary[800],
+        })}>
         <Typography
-          sx={{
+          sx={(t) => ({
+            fontWeight: '600',
             wordBreak: "break-word",
             overflow: "auto",
             fontSize: `1vw`,
             margin: 0,
-          }}>
-          SAMPLE TEXT or
+            color: t.vars.palette.neutral[50]
+          })}>
+          SAMPLE TEXT
         </Typography>
       </Box>
     </>

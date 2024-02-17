@@ -16,10 +16,10 @@ export default function DefaultBackground() {
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundImage:
-            "url(https://images.unsplash.com/photo-1682687218147-9806132dc697?auto=format&w=1000&dpr=2)",
+            "url(https://images.unsplash.com/photo-1634153570366-deda92ecf625?auto=format&w=1000&dpr=2)",
           [theme.getColorSchemeSelector("dark")]: {
             backgroundImage:
-              "url(https://images.unsplash.com/photo-1693743057688-9bb45200514d?auto=format&w=1000&dpr=2)",
+              "url(https://images.unsplash.com/photo-1602475063211-3d98d60e3b1f?auto=format&w=1000&dpr=2)",
           },
         })}
       />
@@ -33,7 +33,7 @@ export default function DefaultBackground() {
           top: 0,
           bottom: 0,
           left: 0,
-          backdropFilter: "blur(25px)",
+          backdropFilter: "blur(60px)",
         }}
       />
     </>

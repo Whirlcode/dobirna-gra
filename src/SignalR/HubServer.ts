@@ -21,7 +21,7 @@ export interface IHubServer {
     getState(): signalR.HubConnectionState
 
     subscribe(listiner: IHubObserver): void
-    unsunscribe(listiner: IHubObserver): void
+    unsubscribe(listiner: IHubObserver): void
 
     updateProfileAsync(name?: string): Promise<void>
     createLobbyAsync(name: string): Promise<void>
@@ -50,9 +50,7 @@ class HubServerImpl implements IHubServer {
 
     async connectAsync(): Promise<void> {
         if (this.connection.state == signalR.HubConnectionState.Disconnected) {
-            console.log(`start connect: ${this.connection.state}`)
             await this.connection.start()
-            console.log(`finished connect: ${this.connection.state}`)
         }
     }
 
@@ -70,7 +68,7 @@ class HubServerImpl implements IHubServer {
         this.connection.on("OnServerError", listiner.onServerError);
     }
 
-    unsunscribe(listiner: IHubObserver): void {
+    unsubscribe(listiner: IHubObserver): void {
         this.connection.off("OnProfileChanged", listiner.onProfileChanged);
         this.connection.off("OnLobbyStateChanged", listiner.onLobbyStateChanged);
         this.connection.off("OnServerError", listiner.onServerError);

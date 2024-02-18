@@ -35,7 +35,7 @@ const gameStateSlice = createSlice({
         },
         updateLobby(state, action: PayloadAction<LobbyData | null>) {
             state.lobby = action.payload
-            state.amMaster = state.me === state.lobby?.Master.Id
+            state.amMaster = state.me === state.lobby?.Master.UserId
         }
     }
 })

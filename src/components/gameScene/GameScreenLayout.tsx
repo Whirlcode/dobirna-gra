@@ -6,8 +6,9 @@ import { useAppSelector } from "@app/Store";
 import EmptyAdminPlace from "@app/components/gameScene/gameMasterComp/EmptyAdminPlace";
 
 export default function GameScreenLayout() {
-  const gameLobby = useAppSelector((s) => s.userInfo.gameLobby);
-  const { createdBy, me } = useAppSelector((s) => s.userInfo);
+
+  const IsOccupiedMaster = useAppSelector((s) => s.gameState.lobby?.Master.IsOccupied)
+  const amMaster = useAppSelector((s) => s.gameState.amMaster)
 
   return (
     <Box sx={{ display: "flex", width: "100%", flex: "1" }}>
@@ -19,11 +20,11 @@ export default function GameScreenLayout() {
           marginTop: "auto",
           gap: 2,
         }}>
-        {createdBy !== me
+        {amMaster
           ?
-          <BigAnswerButton />
-          :
           <Box sx={{ width: "2vw" }} />
+          :
+          <BigAnswerButton />
         }
       </Box>
       <Box
@@ -46,7 +47,7 @@ export default function GameScreenLayout() {
           padding: "0px 20px",
           marginTop: "10vh",
         }}>
-        {gameLobby.some((user) => user.isGameMaster === true)
+        {IsOccupiedMaster
           ?
           <GameMasterCard />
           :

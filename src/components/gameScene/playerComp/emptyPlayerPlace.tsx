@@ -1,7 +1,10 @@
 import { Button, Card, Typography } from "@mui/joy";
 import AddIcon from "@mui/icons-material/Add";
+import hubController from '@app/SignalR/HubController'
+import { useAppSelector } from "@app/Store";
 
-export default function EmptyPlayerPlace() {
+export default function EmptyPlayerPlace({ seatIdx }: { seatIdx: number }) {
+    const Places = useAppSelector(s => s.gameState.lobby?.Places)
     return (
         <>
             <Card
@@ -16,6 +19,7 @@ export default function EmptyPlayerPlace() {
                     border: 0
                 }}>
                 <Button
+                    onClick={() => hubController.seat(seatIdx)}
                     sx={{
                         p: 0,
                         height: "100%",
@@ -28,7 +32,7 @@ export default function EmptyPlayerPlace() {
                     <AddIcon sx={{ height: "100%", width: "100%" }} />
                 </Button>
                 <Typography fontWeight={"600"} fontSize={"2.5vh"}>
-                    Sit as Player
+                    {Places![seatIdx].Score}
                 </Typography>
             </Card>
         </>

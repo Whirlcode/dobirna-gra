@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/joy";
 import ReadyORStartBtn from "./shared/ReadyORStartBtn";
 
 export default function IdleStageOfGame() {
-  const { createdBy, me } = useAppSelector((s) => s.userInfo);
+  const amMaster = useAppSelector((s) => s.gameState.amMaster);
   const inviteCode = useAppSelector(s => s.gameState.lobby?.InviteCode)
   const inviteURL = `${location.host}/?room=${inviteCode}`;
   const packName = "Some random pack name";
@@ -25,7 +25,11 @@ export default function IdleStageOfGame() {
         <Typography
           variant="solid"
           level="h3"
-          sx={theme => ({ color: theme.vars.palette.primary[500], width: 'fit-content' })}>
+          sx={theme =>
+          ({
+            color: theme.vars.palette.primary[500],
+            width: 'fit-content'
+          })}>
           {inviteURL}
         </Typography>
       </Box>
@@ -56,11 +60,12 @@ export default function IdleStageOfGame() {
           mt: "5vh",
         }}
       >
-        {createdBy !== me
+        {amMaster
           ?
-          <ReadyORStartBtn text={'Ready'} />
+          <ReadyORStartBtn text={'Start the game'} />
           :
-          <ReadyORStartBtn text={'Start the game'} />}
+          <ReadyORStartBtn text={'Ready'} />
+        }
       </Box>
     </Box>
   );

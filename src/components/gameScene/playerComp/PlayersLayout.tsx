@@ -1,10 +1,10 @@
+import { useAppSelector } from "@app/Store";
 import { Box } from "@mui/joy";
+import PlayerCard from "@app/components/gameScene/playerComp/PlayerCard";
+import EmptyPlayerPlace from "@app/components/gameScene/playerComp/emptyPlayerPlace";
 
-export default function PlayersLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function PlayersLayout() {
+  const Places = useAppSelector(s => s.gameState.lobby?.Places)
   return (
     <>
       <Box
@@ -19,7 +19,23 @@ export default function PlayersLayout({
           flexWrap: "wrap",
         }}
       >
-        {children}
+        {Places!.map((user, idx) => {
+          return (
+            <>
+              {user.IsOccupied
+                ?
+                <PlayerCard
+                  key={user.UserId}
+                  initialVal={60000}
+                  step={900}
+                  playerName={user.UserName}
+                />
+                :
+                <EmptyPlayerPlace seatIdx={idx} />
+              }
+            </>
+          );
+        })}
       </Box>
     </>
   );

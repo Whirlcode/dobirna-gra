@@ -5,59 +5,55 @@ import SkipNextRoundedIcon from '@mui/icons-material/SkipNextRounded';
 import PauseRoundedIcon from '@mui/icons-material/PauseRounded';
 import KeyboardTabRoundedIcon from '@mui/icons-material/KeyboardTabRounded';
 import { useState } from "react";
+import defImg from '@app/assets/maxresdefault.jpg'
 
 export default function GameMasterCard() {
-  const { gameLobby, createdBy, me } = useAppSelector((s) => s.userInfo);
+  const amMaster = useAppSelector((s) => s.gameState.amMaster);
+  const MasterName = useAppSelector((s) => s.gameState.lobby?.Master.UserName);
   return (
     <>
-      {gameLobby.map((user) => {
-        if (user.isGameMaster) {
-          return (
-            <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-              <Card
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  minHeight: "325px",
-                  maxHeight: "330px",
-                  maxWidth: "250px",
-                  alignItems: "center",
-                  padding: "0px",
-                  borderRadius: "25px",
-                }}>
-                <AspectRatio sx={{ minWidth: "100%" }} minHeight="250px">
-                  <img src={user.img} loading="lazy" alt="" />
-                </AspectRatio>
-                <Box
-                  sx={{
-                    width: "100%",
-                    height: "auto",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}>
-                  <Typography
-                    level="h4"
-                    variant="plain"
-                    textAlign={"center"}
-                    sx={{
-                      padding: "0px 10px",
-                      overflow: "hidden",
-                      whiteSpace: "nowrap",
-                      textOverflow: "ellipsis",
-                      fontSize: "1.25vw",
-                      minWidth: 250,
-                    }}>
-                    {user.name}
-                  </Typography>
-                </Box>
-                <TextOfGameMaster />
-              </Card>
-              {createdBy === me && <ControlGameFlowButtons />}
-            </Box>
-          );
-        }
-      })}
+      <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <Card
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            minHeight: "325px",
+            maxHeight: "330px",
+            maxWidth: "250px",
+            alignItems: "center",
+            padding: "0px",
+            borderRadius: "25px",
+          }}>
+          <AspectRatio sx={{ minWidth: "100%" }} minHeight="250px">
+            <img src={defImg} loading="lazy" alt="" />
+          </AspectRatio>
+          <Box
+            sx={{
+              width: "100%",
+              height: "auto",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}>
+            <Typography
+              level="h4"
+              variant="plain"
+              textAlign={"center"}
+              sx={{
+                padding: "0px 10px",
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
+                fontSize: "1.25vw",
+                minWidth: 250,
+              }}>
+              {MasterName}
+            </Typography>
+          </Box>
+          <TextOfGameMaster />
+        </Card>
+        {amMaster && <ControlGameFlowButtons />}
+      </Box>
     </>
   );
 }

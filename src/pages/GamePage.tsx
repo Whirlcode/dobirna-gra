@@ -5,16 +5,13 @@ import DrawerMain from "@app/components/gameScene/DrawerMain";
 
 import GameScreenLayout from "@app/components/gameScene/GameScreenLayout";
 
-import PlayerCard from "@app/components/gameScene/playerComp/PlayerCard";
 import PlayersLayout from "@app/components/gameScene/playerComp/PlayersLayout";
 import { Box } from "@mui/joy";
-import EmptyPlayerPlace from "@app/components/gameScene/playerComp/emptyPlayerPlace";
 
 
 export default function GamePage() {
-  const gameLobby = useAppSelector((s) => s.userInfo.gameLobby);
   const isInLobby = useAppSelector(s => s.gameState.lobby?.Id) != null;
-  const { amMaster } = useAppSelector(s => s.gameState);
+
 
   return (
     <>
@@ -30,26 +27,7 @@ export default function GamePage() {
       >
         <GameScreenLayout />
         <DrawerMain />
-
-        <PlayersLayout>
-
-          {gameLobby.map((player) => {
-            if (!player.isGameMaster) {
-              return (
-                <>
-                  <PlayerCard
-                    key={player.id}
-                    initialVal={60000}
-                    step={900}
-                    playerName={player.name}
-                    playerImg={player.img}
-                  />
-                </>
-              );
-            }
-          })}
-          {amMaster && <EmptyPlayerPlace />}
-        </PlayersLayout>
+        <PlayersLayout />
       </Box>
     </>
   );

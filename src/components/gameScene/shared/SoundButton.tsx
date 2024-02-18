@@ -1,7 +1,7 @@
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import { Box, IconButton } from "@mui/joy";
 import { useState } from "react";
-import SoundSlide from "@app/components/gameScene/SoundSlide";
+import SoundSlide from "@app/components/gameScene/shared/SoundSlide";
 
 export default function SoundButton() {
   const [openSoundSlide, setOpenSoundSlide] = useState(false);

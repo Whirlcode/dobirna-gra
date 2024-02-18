@@ -4,17 +4,21 @@ import { useAppSelector } from "@app/Store";
 import DrawerMain from "@app/components/gameScene/DrawerMain";
 
 import GameScreenLayout from "@app/components/gameScene/GameScreenLayout";
-import PlayerCard from "@app/components/gameScene/PlayerCard";
-import PlayersLayout from "@app/components/gameScene/PlayersLayout";
 
+import PlayerCard from "@app/components/gameScene/playerComp/PlayerCard";
+import PlayersLayout from "@app/components/gameScene/playerComp/PlayersLayout";
 import { Box } from "@mui/joy";
+import EmptyPlayerPlace from "@app/components/gameScene/playerComp/emptyPlayerPlace";
+
 
 export default function GamePage() {
   const gameLobby = useAppSelector((s) => s.userInfo.gameLobby);
   const isInLobby = useAppSelector(s => s.gameState.lobby?.Id) != null;
+  const { amMaster } = useAppSelector(s => s.gameState);
+
   return (
     <>
-      {!isInLobby && <Navigate to="/"/>}
+      {!isInLobby && <Navigate to="/" />}
       <Box
         sx={{
           display: "flex",
@@ -28,6 +32,7 @@ export default function GamePage() {
         <DrawerMain />
 
         <PlayersLayout>
+
           {gameLobby.map((player) => {
             if (!player.isGameMaster) {
               return (
@@ -43,6 +48,7 @@ export default function GamePage() {
               );
             }
           })}
+          {amMaster && <EmptyPlayerPlace />}
         </PlayersLayout>
       </Box>
     </>

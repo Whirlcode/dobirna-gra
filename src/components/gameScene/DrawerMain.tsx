@@ -10,7 +10,8 @@ import {
 import Drawer from "@mui/joy/Drawer";
 import Menu from "@mui/icons-material/Menu";
 import { useState } from "react";
-import SoundSlide from "@app/components/gameScene/SoundSlide";
+import SoundSlide from "@app/components/gameScene/shared/SoundSlide";
+
 
 import hubController from "@app/SignalR/HubController";
 

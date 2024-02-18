@@ -1,5 +1,6 @@
 import { useAppSelector } from "@app/Store";
-import { Box, Button, Typography } from "@mui/joy";
+import { Box, Typography } from "@mui/joy";
+import ReadyORStartBtn from "./shared/ReadyORStartBtn";
 
 export default function IdleStageOfGame() {
   const { createdBy, me } = useAppSelector((s) => s.userInfo);
@@ -17,32 +18,33 @@ export default function IdleStageOfGame() {
       }}
     >
       <Box sx={{ p: "20px" }}>
-        <Typography color="primary" level="h2" variant="plain">
+        <Typography level="h2">
           Invite link :
         </Typography>
 
-        <Typography color="success" level="h3" variant="plain">
+        <Typography
+          variant="solid"
+          level="h3"
+          sx={theme => ({ color: theme.vars.palette.primary[500], width: 'fit-content' })}>
           {inviteURL}
         </Typography>
       </Box>
       <Box sx={{ display: "flex", flexDirection: "column", my: 5, gap: 3 }}>
         <Typography
-          color="primary"
           fontWeight={700}
           fontSize={50}
           variant="plain"
           noWrap={false}
           textAlign={"center"}
-          sx={{ overflowWrap: "anywhere" }}
+          sx={theme => ({ overflowWrap: "anywhere", color: theme.vars.palette.neutral[400] })}
         >
           {packName}
         </Typography>
         <Typography
-          color="success"
           level="h1"
           variant="plain"
           textAlign={"center"}
-          sx={{ overflowWrap: "anywhere" }}
+          sx={theme => ({ overflowWrap: "anywhere", color: theme.vars.palette.primary[700] })}
         >
           {numberOfRounds} Rounds
         </Typography>
@@ -54,20 +56,11 @@ export default function IdleStageOfGame() {
           mt: "5vh",
         }}
       >
-        {createdBy !== me &&
-          <Button
-            color="primary"
-            sx={{
-              height: "80px",
-              width: "600px",
-              ":hover": {
-                backgroundColor: "rgb(165, 255, 253)",
-              }
-            }}>
-            <Typography color="success" level="h1" variant="plain">
-              Ready
-            </Typography>
-          </Button>}
+        {createdBy !== me
+          ?
+          <ReadyORStartBtn text={'Ready'} />
+          :
+          <ReadyORStartBtn text={'Start the game'} />}
       </Box>
     </Box>
   );

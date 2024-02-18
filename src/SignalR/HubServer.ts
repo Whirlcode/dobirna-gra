@@ -1,16 +1,18 @@
 import * as signalR from "@microsoft/signalr";
 import * as msgpack from "@microsoft/signalr-protocol-msgpack"
 import {
-    LobbyInfo,
-    UserInfo,
+    LobbyData,
+    ProfileData,
     UpdateProfileAction,
     CreateLobbyAction,
-    JoinLobbyAction
+    JoinLobbyAction,
+    LobbyAction,
+    ProfileAction
 } from "@app/SignalR/MessageTypes"
 
 export interface IHubObserver {
-    onProfileChanged(me: UserInfo): void,
-    onLobbyStateChanged(lobbyInfo: LobbyInfo): void
+    onProfileChanged(action: ProfileAction, me: ProfileData): void,
+    onLobbyChanged(action: LobbyAction, lobbyData: LobbyData): void
     onServerError(error: string): void
 }
 
@@ -26,6 +28,7 @@ export interface IHubServer {
     updateProfileAsync(name?: string): Promise<void>
     createLobbyAsync(name: string): Promise<void>
     joinLobbyAsync(inviteCode: string): Promise<void>
+    leaveLobbyAsync(): Promise<void>
 }
 
 class HubServerImpl implements IHubServer {
@@ -34,7 +37,7 @@ class HubServerImpl implements IHubServer {
 
     constructor() {
         function getGameServerURL() {
-            const useLocalServer = false;
+            const useLocalServer = true;
             return useLocalServer ? "https://localhost:8000/gamehub" : "https://dobirnagraserver.onrender.com/gamehub"
         }
 
@@ -64,13 +67,13 @@ class HubServerImpl implements IHubServer {
 
     subscribe(listiner: IHubObserver): void {
         this.connection.on("OnProfileChanged", listiner.onProfileChanged);
-        this.connection.on("OnLobbyStateChanged", listiner.onLobbyStateChanged);
+        this.connection.on("OnLobbyChanged", listiner.onLobbyChanged);
         this.connection.on("OnServerError", listiner.onServerError);
     }
 
     unsubscribe(listiner: IHubObserver): void {
         this.connection.off("OnProfileChanged", listiner.onProfileChanged);
-        this.connection.off("OnLobbyStateChanged", listiner.onLobbyStateChanged);
+        this.connection.off("OnLobbyChanged", listiner.onLobbyChanged);
         this.connection.off("OnServerError", listiner.onServerError);
     }
 
@@ -90,6 +93,10 @@ class HubServerImpl implements IHubServer {
         await this.connection.send("JoinLobby", {
             InviteCode: inviteCode
         } as JoinLobbyAction);
+    }
+
+    async leaveLobbyAsync(): Promise<void> {
+        await this.connection.send("LeaveLobby");
     }
 }
 

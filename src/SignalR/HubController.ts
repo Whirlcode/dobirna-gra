@@ -1,24 +1,22 @@
 import hubServer, { IHubObserver } from "@app/SignalR/HubServer";
-import { UserInfo, LobbyInfo } from "@app/SignalR/MessageTypes";
+import { ProfileData, LobbyData, LobbyAction, ProfileAction } from "@app/SignalR/MessageTypes";
 
 import appStore from "@app/Store"
-import { ConnectionState, updateConnectionStatus, updateLobby, updateProfile } from "@app/features/gameState/gameStateSlice";
+import { ConnectionState, updateConnectionStatus, updateLobby, updateProfileId } from "@app/features/gameState/gameStateSlice";
 
-class Handler implements IHubObserver
-{
-    constructor()
-    {
+class Handler implements IHubObserver {
+    constructor() {
         this.onProfileChanged = this.onProfileChanged.bind(this)
-        this.onLobbyStateChanged = this.onLobbyStateChanged.bind(this)
+        this.onLobbyChanged = this.onLobbyChanged.bind(this)
         this.onServerError = this.onServerError.bind(this)
     }
 
-    onProfileChanged(me: UserInfo): void {
-        appStore.dispatch(updateProfile(me))
+    onProfileChanged(_ : ProfileAction, me: ProfileData): void {
+        appStore.dispatch(updateProfileId(me.Id))
     }
 
-    onLobbyStateChanged(lobbyInfo: LobbyInfo): void {
-        appStore.dispatch(updateLobby(lobbyInfo))
+    onLobbyChanged(_ : LobbyAction, lobbyData: LobbyData): void {
+        appStore.dispatch(updateLobby(lobbyData))
     }
 
     onServerError(error: string): void {
@@ -26,11 +24,10 @@ class Handler implements IHubObserver
     }
 }
 
-class HubControllerImpl
-{
+class HubControllerImpl {
     handler: Handler
 
-    constructor(){
+    constructor() {
         this.handler = new Handler()
     }
 
@@ -38,7 +35,6 @@ class HubControllerImpl
         appStore.dispatch(updateConnectionStatus(ConnectionState.CONNECTING))
         hubServer.subscribe(this.handler)
         await hubServer.connectAsync()
-        await hubServer.updateProfileAsync("")
         appStore.dispatch(updateConnectionStatus(ConnectionState.CONNECTED))
     }
 
@@ -54,6 +50,10 @@ class HubControllerImpl
 
     async joinLobby(inviteCode: string) {
         await hubServer.joinLobbyAsync(inviteCode);
+    }
+
+    async leaveLobby() {
+        await hubServer.leaveLobbyAsync();
     }
 
     async updateProfile(name: string) {

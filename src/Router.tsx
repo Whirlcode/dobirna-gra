@@ -1,18 +1,25 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import EnterPage from '@app/pages/EnterPage'
-import ErrorPage from '@app/pages/ErrorPage'
+import App from "@app/App";
+
+import EnterPage from "@app/pages/EnterPage"
 import GamePage from "@app/pages/GamePage"
+import ErrorPage from "@app/pages/ErrorPage"
 
 export const router = createBrowserRouter([
     {
         path: "/",
-        element: <EnterPage />,
-        errorElement: <ErrorPage />
-    },
-    {
-        path: "/game",
-        element: <GamePage />,
-        errorElement: <ErrorPage />
+        element: <App/>,
+        errorElement: <ErrorPage />,
+        children: [
+            {
+                path: "/",
+                element: <EnterPage />,
+            },
+            {
+                path: "/game",
+                element: <GamePage />,
+            }
+        ]
     }
 ]);

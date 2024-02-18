@@ -7,8 +7,9 @@ import GameScreenLayout from "@app/components/gameScene/GameScreenLayout";
 
 import PlayerCard from "@app/components/gameScene/playerComp/PlayerCard";
 import PlayersLayout from "@app/components/gameScene/playerComp/PlayersLayout";
-import EmptyPlayerPLace from "@app/components/gameScene/playerComp/emptyPlayerPlace";
 import { Box } from "@mui/joy";
+import EmptyPlayerPlace from "@app/components/gameScene/playerComp/emptyPlayerPlace";
+
 
 export default function GamePage() {
   const gameLobby = useAppSelector((s) => s.userInfo.gameLobby);
@@ -47,7 +48,7 @@ export default function GamePage() {
               );
             }
           })}
-          {amMaster && <EmptyPlayerPLace />}
+          {amMaster && <EmptyPlayerPlace />}
         </PlayersLayout>
       </Box>
     </>

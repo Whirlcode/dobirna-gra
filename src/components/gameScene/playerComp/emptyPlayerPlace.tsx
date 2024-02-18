@@ -1,7 +1,7 @@
 import { Button, Card, Typography } from "@mui/joy";
 import AddIcon from "@mui/icons-material/Add";
 
-export default function EmptyPlayerPLace() {
+export default function EmptyPlayerPlace() {
     return (
         <>
             <Card

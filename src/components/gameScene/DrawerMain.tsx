@@ -10,7 +10,6 @@ import {
 import Drawer from "@mui/joy/Drawer";
 import Menu from "@mui/icons-material/Menu";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import SoundSlide from "@app/components/gameScene/shared/SoundSlide";
 
 

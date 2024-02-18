@@ -1,15 +1,20 @@
+import { Navigate } from "react-router-dom";
+
 import { useAppSelector } from "@app/Store";
 import DrawerMain from "@app/components/gameScene/DrawerMain";
 
 import GameScreenLayout from "@app/components/gameScene/GameScreenLayout";
 import PlayerCard from "@app/components/gameScene/PlayerCard";
 import PlayersLayout from "@app/components/gameScene/PlayersLayout";
+
 import { Box } from "@mui/joy";
 
 export default function GamePage() {
   const gameLobby = useAppSelector((s) => s.userInfo.gameLobby);
+  const isInLobby = useAppSelector(s => s.gameState.lobby?.Id) != null;
   return (
     <>
+      {!isInLobby && <Navigate to="/"/>}
       <Box
         sx={{
           display: "flex",

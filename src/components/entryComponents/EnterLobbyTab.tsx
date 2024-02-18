@@ -1,22 +1,20 @@
+import {useState} from "react"
+
 import { Box, Card } from "@mui/joy";
 import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
 import KeyIcon from "@mui/icons-material/Key";
 import FloatingInput from "@app/components/entryComponents/FloatingInput";
 
-import { useNavigate } from "react-router-dom";
 import UploadImgButton from "@app/components/entryComponents/UploadImgButton";
-import { useAppDispatch } from "@app/Store";
-import {
-  addInviteLink,
-  addPlayerToLobby,
-} from "@app/features/userInfo/userInfoSlice";
-import { useRef } from "react";
+
+import { useQuery } from "@app/hooks/query";
+
+import hubController from "@app/SignalR/HubController"
 
 export default function EnterLobbyTab() {
-  const invLink = useRef<string>();
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+  const query = useQuery();
+  const [inviteCode, setInviteCode] = useState(query.get("room") ?? "");
 
   return (
     <>
@@ -42,30 +40,22 @@ export default function EnterLobbyTab() {
         </Box>
 
         <Input
-          onChange={(e) => (invLink.current = e.target.value)}
+          value={inviteCode}
+          onChange={(e) => setInviteCode(e.target.value)}
           startDecorator={<KeyIcon />}
           endDecorator={
             <Button
               onClick={() => {
-                navigate("/game");
+                hubController.joinLobby(inviteCode)
               }}
             >
-              Enter
+              Join Room
             </Button>
           }
           placeholder="Invite code"
         />
-        <Button
-          sx={{ display: "flex" }}
-          onClick={() => {
-            dispatch(addInviteLink(invLink));
-            dispatch(addPlayerToLobby());
-            navigate("/game");
-          }}
-        >
-          Join Room
-        </Button>
       </Card>
     </>
   );
 }
+

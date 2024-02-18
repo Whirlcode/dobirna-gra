@@ -1,7 +1,8 @@
 import { Button, Card, Typography } from "@mui/joy";
 import AddIcon from "@mui/icons-material/Add";
+import hubController from '@app/SignalR/HubController'
 
-export default function EmptyPlayerPlace() {
+export default function EmptyPlayerPlace({ seatIdx }: { seatIdx: number }) {
     return (
         <>
             <Card
@@ -16,6 +17,7 @@ export default function EmptyPlayerPlace() {
                     border: 0
                 }}>
                 <Button
+                    onClick={() => hubController.seat(seatIdx)}
                     sx={{
                         p: 0,
                         height: "100%",

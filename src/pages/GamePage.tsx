@@ -12,9 +12,8 @@ import EmptyPlayerPlace from "@app/components/gameScene/playerComp/emptyPlayerPl
 
 
 export default function GamePage() {
-  const gameLobby = useAppSelector((s) => s.userInfo.gameLobby);
   const isInLobby = useAppSelector(s => s.gameState.lobby?.Id) != null;
-  const { amMaster } = useAppSelector(s => s.gameState);
+  const { lobby } = useAppSelector(s => s.gameState);
 
   return (
     <>
@@ -30,25 +29,24 @@ export default function GamePage() {
       >
         <GameScreenLayout />
         <DrawerMain />
-
         <PlayersLayout>
-
-          {gameLobby.map((player) => {
-            if (!player.isGameMaster) {
-              return (
-                <>
+          {lobby?.Places.map((user, idx) => {
+            return (
+              <>
+                {user.IsOccupied
+                  ?
                   <PlayerCard
-                    key={player.id}
+                    key={user.UserId}
                     initialVal={60000}
                     step={900}
-                    playerName={player.name}
-                    playerImg={player.img}
+                    playerName={user.UserName}
                   />
-                </>
-              );
-            }
+                  :
+                  <EmptyPlayerPlace seatIdx={idx} />
+                }
+              </>
+            );
           })}
-          {amMaster && <EmptyPlayerPlace />}
         </PlayersLayout>
       </Box>
     </>

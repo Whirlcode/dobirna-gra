@@ -12,17 +12,16 @@ import {
   Typography,
 } from "@mui/joy";
 import { useEffect, useRef, useState } from "react";
+import defImg from '@app/assets/maxresdefault.jpg'
 
 export default function PlayerCard({
   initialVal,
   step,
   playerName,
-  playerImg,
 }: {
   initialVal: number;
   step: number;
   playerName: string;
-  playerImg: string;
 }) {
   const [milisec, setMilisec] = useState(initialVal);
   const [openContextMenu, setOpenContextMenu] = useState(false);
@@ -117,7 +116,7 @@ export default function PlayerCard({
             </Box>
           )}
           <AspectRatio minHeight={170} sx={{ minWidth: 170 }}>
-            <img src={playerImg} loading="lazy" alt="" />
+            <img src={defImg} loading="lazy" alt="" />
           </AspectRatio>
           <Box
             sx={{

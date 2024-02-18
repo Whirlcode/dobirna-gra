@@ -1,5 +1,6 @@
 import { Button, Card, Typography } from "@mui/joy";
 import AddIcon from "@mui/icons-material/Add";
+import hubController from '@app/SignalR/HubController'
 
 export default function EmptyAdminPlace() {
   return (
@@ -16,6 +17,7 @@ export default function EmptyAdminPlace() {
           gap: 0,
         }}>
         <Button
+          onClick={() => hubController.seatMaster()}
           sx={{
             p: 0,
             height: "100%",

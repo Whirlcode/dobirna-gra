@@ -6,6 +6,7 @@ import {
     UpdateProfileAction,
     CreateLobbyAction,
     JoinLobbyAction,
+    ChangeScoreAction,
     LobbyAction,
     ProfileAction
 } from "@app/SignalR/MessageTypes"
@@ -32,6 +33,10 @@ export interface IHubServer {
 
     seatAsync(index: number): Promise<void>
     seatMasterAsync(): Promise<void>
+
+    setNumberPlacesAsync(value: number): Promise<void>
+    removePlaceAsync(index: number): Promise<void>
+    changeScoreAsync(targetPalceIndex: number, newScore: number): Promise<void>
 }
 
 class HubServerImpl implements IHubServer {
@@ -110,6 +115,21 @@ class HubServerImpl implements IHubServer {
 
     async seatMasterAsync(): Promise<void> {
         await this.connection.send("SeatMaster");
+    }
+
+    async setNumberPlacesAsync(value: number): Promise<void> {
+        await this.connection.send("SetNumberPlaces", value);
+    }
+
+    async removePlaceAsync(index: number): Promise<void> {
+        await this.connection.send("RemovePlace", index);
+    }
+
+    async changeScoreAsync(targetPalceIndex: number, newScore: number): Promise<void> {
+        await this.connection.send("ChangeScore", {
+            TargetPlaceIndex: targetPalceIndex,
+            NewScore: newScore
+        } as ChangeScoreAction);
     }
 }
 

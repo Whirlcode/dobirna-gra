@@ -67,6 +67,18 @@ class HubControllerImpl {
     async seatMaster() {
         await hubServer.seatMasterAsync();
     }
+
+    async setNumberPlaces(value: number){
+        await hubServer.setNumberPlacesAsync(value);
+    }
+
+    async removePlace(index: number){
+        await hubServer.removePlaceAsync(index);
+    }
+
+    async changeScore(targetPalceIndex: number, newScore: number){
+        await hubServer.changeScoreAsync(targetPalceIndex, newScore);
+    }
 }
 
 const hubController = new HubControllerImpl()

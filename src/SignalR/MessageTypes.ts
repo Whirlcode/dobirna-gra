@@ -25,6 +25,11 @@ export type UpdateProfileAction = {
     Name: string | undefined
 }
 
+export type ChangeScoreAction = {
+    TargetPlaceIndex: number,
+    NewScore: number
+}
+
 export type ProfileData = {
     Id: string
 }

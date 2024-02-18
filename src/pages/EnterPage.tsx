@@ -1,8 +1,11 @@
+import { useState } from "react";
+import { Navigate } from "react-router-dom";
+import { useAppSelector } from "@app/Store";
+
 import Box from "@mui/joy/Box";
 import Tab from "@mui/joy/Tab";
 import Tabs from "@mui/joy/Tabs";
 import TabList from "@mui/joy/TabList";
-import { useState } from "react";
 import EnterLobbyTab from "@app/components/entryComponents/EnterLobbyTab";
 import CreateLobbyTab from "@app/components/entryComponents/CreateLobbyTab";
 
@@ -71,8 +74,10 @@ function TabContent(props: TabsContentProps) {
 
 export default function EnterPage() {
   const [currentTab, setTab] = useState(ETabs.EnterLobby);
+  const isInLobby = useAppSelector(s => s.gameState.lobby?.Id) != null;
   return (
     <>
+      {isInLobby && <Navigate to="/game"/>}
       <Box
         sx={{
           display: "flex",

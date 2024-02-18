@@ -13,10 +13,11 @@ import { Box } from "@mui/joy";
 export default function GamePage() {
   const gameLobby = useAppSelector((s) => s.userInfo.gameLobby);
   const isInLobby = useAppSelector(s => s.gameState.lobby?.Id) != null;
+  const { amMaster } = useAppSelector(s => s.gameState);
 
   return (
     <>
-      {!isInLobby && <Navigate to="/"/>}
+      {!isInLobby && <Navigate to="/" />}
       <Box
         sx={{
           display: "flex",
@@ -46,7 +47,7 @@ export default function GamePage() {
               );
             }
           })}
-          {createdBy === me && <EmptyPlayerPLace />}
+          {amMaster && <EmptyPlayerPLace />}
         </PlayersLayout>
       </Box>
     </>

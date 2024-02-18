@@ -1,21 +1,24 @@
 export enum LobbyAction {
     Joined = "Joined",
     Leaved  = "Leaved",
-    Updated = "Updated"
+    Updated = "Updated",
 }
 
 export enum ProfileAction {
     LoggedIn = "LoggedIn",
     Updated  = "Updated",
-    Logout = "Logout"
+    Logout = "Logout",
 }
 
 export type CreateLobbyAction = {
-    Name: string
+    NameLobby: string
+    UserName: string
+    InitialNumberPlaces: number
 }
 
 export type JoinLobbyAction = {
     InviteCode: string
+    UserName: string
 }
 
 export type UpdateProfileAction = {
@@ -26,21 +29,21 @@ export type ProfileData = {
     Id: string
 }
 
-export type PlayerTableData = {
-    Id: string,
+export type PlayerPlaceData = {
+    Id: string
     Name: string
-    Score: number,
+    Score: number
 }
 
 export type MasterData = {
-    Id: string,
+    Id: string
     Name: string
 }
 
 export type LobbyData = {
-    Id: string,
-    Name: string,
-    InviteCode: string,
-    Tables: PlayerTableData[]
+    Id: string
+    Name: string
+    InviteCode: string
+    Places: PlayerPlaceData[]
     Master: MasterData
 }

@@ -44,12 +44,12 @@ class HubControllerImpl {
         appStore.dispatch(updateConnectionStatus(ConnectionState.DISCONNECTED))
     }
 
-    async createLobby(name: string) {
-        await hubServer.createLobbyAsync(name);
+    async createLobby(nameLobby: string, initialNumberPlaces: number, userName: string) {
+        await hubServer.createLobbyAsync(nameLobby, initialNumberPlaces, userName);
     }
 
-    async joinLobby(inviteCode: string) {
-        await hubServer.joinLobbyAsync(inviteCode);
+    async joinLobby(inviteCode: string, userName: string) {
+        await hubServer.joinLobbyAsync(inviteCode, userName);
     }
 
     async leaveLobby() {
@@ -58,6 +58,14 @@ class HubControllerImpl {
 
     async updateProfile(name: string) {
         await hubServer.updateProfileAsync(name);
+    }
+
+    async seat(index: number) {
+        await hubServer.seatAsync(index);
+    }
+
+    async seatMaster() {
+        await hubServer.seatMasterAsync();
     }
 }
 

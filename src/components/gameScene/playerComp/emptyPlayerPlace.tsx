@@ -4,7 +4,7 @@ import hubController from '@app/SignalR/HubController'
 import { useAppSelector } from "@app/Store";
 
 export default function EmptyPlayerPlace({ seatIdx }: { seatIdx: number }) {
-    const Places = useAppSelector(s => s.gameState.lobby?.Places)
+    const Places = useAppSelector(s => s.gameState.lobby?.Places[seatIdx])
     return (
         <>
             <Card
@@ -32,7 +32,7 @@ export default function EmptyPlayerPlace({ seatIdx }: { seatIdx: number }) {
                     <AddIcon sx={{ height: "100%", width: "100%" }} />
                 </Button>
                 <Typography fontWeight={"600"} fontSize={"2.5vh"}>
-                    {Places![seatIdx].Score}
+                    {Places!.Score}
                 </Typography>
             </Card>
         </>

@@ -13,12 +13,12 @@ export default function InputWithoutArrows({
         sx={{
           minHeight: 60,
           "input::-webkit-outer-spin-button, input::-webkit-inner-spin-button":
-            {
-              "-webkit-appearance": "none",
-              margin: 0,
-            },
+          {
+            "WebkitAppearance": "none",
+            margin: 0,
+          },
           "input[type=number]": {
-            "-moz-appearance": "textfield",
+            "MozAppearance": "textfield",
           },
         }}
         variant="outlined"

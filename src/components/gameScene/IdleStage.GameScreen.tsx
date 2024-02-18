@@ -4,7 +4,8 @@ import ReadyORStartBtn from "./shared/ReadyORStartBtn";
 
 export default function IdleStageOfGame() {
   const { createdBy, me } = useAppSelector((s) => s.userInfo);
-  const inviteURL = `https://dobirna-gra/game?room={${"ID_OF_ROOM"}}`;
+  const inviteCode = useAppSelector(s => s.gameState.lobby?.InviteCode)
+  const inviteURL = `${location.host}/?room=${inviteCode}`;
   const packName = "Some random pack name";
   const numberOfRounds = "8";
   return (

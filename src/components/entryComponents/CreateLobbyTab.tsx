@@ -1,13 +1,12 @@
 import { Box, Button, Card, Input, Typography } from "@mui/joy";
 import FloatingInput from "@app/components/entryComponents/FloatingInput";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import InputWithoutArrows from "./InputWithoutArrows";
 
 import { styled } from "@mui/joy";
 import UploadImgButton from "./UploadImgButton";
-import { useAppDispatch } from "@app/Store";
-import { addGameMasterToLobby } from "@app/features/userInfo/userInfoSlice";
+
+import hubController from "@app/SignalR/HubController";
 
 const VisuallyHiddenInput = styled("input")`
   height: 1px;
@@ -21,8 +20,11 @@ const VisuallyHiddenInput = styled("input")`
 
 export default function CreateLobbyTab() {
   const [playerCount, setPlayerCount] = useState<number>(0);
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+  const [roomName, setRoomName] = useState('');
+
+  function onChangeRoomName(event: React.ChangeEvent<{ value: string }>) {
+    setRoomName(event.target.value)
+  }
 
   return (
     <>
@@ -55,7 +57,7 @@ export default function CreateLobbyTab() {
             maxWidth: "50%",
           }}
         >
-          <Input sx={{ minHeight: 60 }} type="text" placeholder="Name room" />
+          <Input sx={{ minHeight: 60 }} type="text" placeholder="Name room" value={roomName} onChange={onChangeRoomName} />
           <InputWithoutArrows count={playerCount} setCount={setPlayerCount} />
           {playerCount > 10 && (
             <Typography
@@ -91,8 +93,7 @@ export default function CreateLobbyTab() {
         <Button
           sx={{ display: "flex" }}
           onClick={() => {
-            navigate("/game");
-            dispatch(addGameMasterToLobby());
+            hubController.createLobby(roomName);
           }}
         >
           Create new room

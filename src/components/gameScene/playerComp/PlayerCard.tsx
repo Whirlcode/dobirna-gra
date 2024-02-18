@@ -18,10 +18,12 @@ export default function PlayerCard({
   initialVal,
   step,
   playerName,
+  scoreOfPlace
 }: {
   initialVal: number;
   step: number;
   playerName: string;
+  scoreOfPlace: number
 }) {
   const [milisec, setMilisec] = useState(initialVal);
   const [openContextMenu, setOpenContextMenu] = useState(false);
@@ -93,11 +95,11 @@ export default function PlayerCard({
                   minHeight: 60,
                   "input::-webkit-outer-spin-button, input::-webkit-inner-spin-button":
                   {
-                    "-webkit-appearance": "none",
+                    "WebkitAppearance": "none",
                     margin: 0,
                   },
                   "input[type=number]": {
-                    "-moz-appearance": "textfield",
+                    "MozAppearance": "textfield",
                   },
                 }}
                 type="number"
@@ -160,7 +162,7 @@ export default function PlayerCard({
                 maxWidth: 250,
               }}
             >
-              {playerPoints.current}
+              {scoreOfPlace}
             </Typography>
           </Box>
           {amMaster &&

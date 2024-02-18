@@ -26,9 +26,12 @@ export interface IHubServer {
     unsubscribe(listiner: IHubObserver): void
 
     updateProfileAsync(name?: string): Promise<void>
-    createLobbyAsync(name: string): Promise<void>
-    joinLobbyAsync(inviteCode: string): Promise<void>
+    createLobbyAsync(nameLobby: string, initialNumberPlaces : number, userName: string): Promise<void>
+    joinLobbyAsync(inviteCode: string, userName: string): Promise<void>
     leaveLobbyAsync(): Promise<void>
+
+    seatAsync(index: number): Promise<void>
+    seatMasterAsync(): Promise<void>
 }
 
 class HubServerImpl implements IHubServer {
@@ -82,20 +85,31 @@ class HubServerImpl implements IHubServer {
         } as UpdateProfileAction)
     }
 
-    async createLobbyAsync(name: string): Promise<void> {
+    async createLobbyAsync(nameLobby: string, initialNumberPlaces : number, userName: string): Promise<void> {
         await this.connection.send("CreateLobby", {
-            Name: name
+            NameLobby: nameLobby,
+            InitialNumberPlaces: initialNumberPlaces,
+            UserName: userName
         } as CreateLobbyAction);
     }
 
-    async joinLobbyAsync(inviteCode: string): Promise<void> {
+    async joinLobbyAsync(inviteCode: string, userName: string): Promise<void> {
         await this.connection.send("JoinLobby", {
-            InviteCode: inviteCode
+            InviteCode: inviteCode,
+            UserName: userName
         } as JoinLobbyAction);
     }
 
     async leaveLobbyAsync(): Promise<void> {
         await this.connection.send("LeaveLobby");
+    }
+
+    async seatAsync(index: number): Promise<void> {
+        await this.connection.send("Seat", index);
+    }
+
+    async seatMasterAsync(): Promise<void> {
+        await this.connection.send("SeatMaster");
     }
 }
 

@@ -1,6 +1,6 @@
 import { Box, Button, Card, Input, Typography } from "@mui/joy";
 import FloatingInput from "@app/components/entryComponents/FloatingInput";
-import { useState } from "react";
+import { ChangeEvent, useState, useRef } from "react";
 import InputWithoutArrows from "./InputWithoutArrows";
 
 import { styled } from "@mui/joy";
@@ -19,11 +19,16 @@ const VisuallyHiddenInput = styled("input")`
 `;
 
 export default function CreateLobbyTab() {
-  const [playerCount, setPlayerCount] = useState<number>(0);
-  const [roomName, setRoomName] = useState('');
+  const [playerCount, setPlayerCount] = useState<number>(0)
+  const playerName = useRef<string>("")
+  const roomName = useRef('');
 
   function onChangeRoomName(event: React.ChangeEvent<{ value: string }>) {
-    setRoomName(event.target.value)
+    roomName.current = event.target.value
+  }
+
+  function onChangeName(event : ChangeEvent<{value: string}>){
+    playerName.current = event.target.value
   }
 
   return (
@@ -46,7 +51,7 @@ export default function CreateLobbyTab() {
           }}
         >
           <UploadImgButton />
-          <FloatingInput label="Name" placeholder="John Doe" />
+          <FloatingInput label="Name" placeholder="John Doe" onChange={onChangeName}/>
         </Box>
         <Box
           sx={{
@@ -57,7 +62,7 @@ export default function CreateLobbyTab() {
             maxWidth: "50%",
           }}
         >
-          <Input sx={{ minHeight: 60 }} type="text" placeholder="Name room" value={roomName} onChange={onChangeRoomName} />
+          <Input sx={{ minHeight: 60 }} type="text" placeholder="Name room" onChange={onChangeRoomName} />
           <InputWithoutArrows count={playerCount} setCount={setPlayerCount} />
           {playerCount > 10 && (
             <Typography
@@ -93,7 +98,7 @@ export default function CreateLobbyTab() {
         <Button
           sx={{ display: "flex" }}
           onClick={() => {
-            hubController.createLobby(roomName);
+            hubController.createLobby(roomName.current, playerCount, playerName.current);
           }}
         >
           Create new room

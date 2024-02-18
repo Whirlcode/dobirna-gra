@@ -1,4 +1,4 @@
-import {useState} from "react"
+import { useState, useRef } from "react"
 
 import { Box, Card } from "@mui/joy";
 import Input from "@mui/joy/Input";
@@ -15,7 +15,7 @@ import hubController from "@app/SignalR/HubController"
 export default function EnterLobbyTab() {
   const query = useQuery();
   const [inviteCode, setInviteCode] = useState(query.get("room") ?? "");
-
+  const playerName = useRef<string>("")
   return (
     <>
       <Card
@@ -36,7 +36,7 @@ export default function EnterLobbyTab() {
           }}
         >
           <UploadImgButton></UploadImgButton>
-          <FloatingInput label="Name" placeholder="John Doe" />
+          <FloatingInput label="Name" placeholder="John Doe" onChange={(e) => playerName.current = e.target.value}/>
         </Box>
 
         <Input
@@ -46,7 +46,7 @@ export default function EnterLobbyTab() {
           endDecorator={
             <Button
               onClick={() => {
-                hubController.joinLobby(inviteCode)
+                hubController.joinLobby(inviteCode, playerName.current)
               }}
             >
               Join Room

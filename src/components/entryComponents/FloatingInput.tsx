@@ -1,8 +1,6 @@
-import React, { useRef } from "react";
+import React, { ChangeEventHandler } from "react";
 import { styled } from "@mui/joy/styles";
 import Input from "@mui/joy/Input";
-import { useAppDispatch } from "@app/Store";
-import { addNamePlayer } from "@app/features/userInfo/userInfoSlice";
 
 const StyledInput = styled("input")({
   border: "none",
@@ -74,17 +72,17 @@ const InnerInput = React.forwardRef<HTMLInputElement, InnerInputProps>(
 );
 
 interface FloatingInputProps {
-  label: string;
-  placeholder: string;
+  label: string
+  placeholder: string
+  value?: string | readonly string[] | number | undefined
+  onChange?: ChangeEventHandler<HTMLInputElement> | undefined
 }
 
 export default function FloatingInput(props: FloatingInputProps) {
-  const dispatch = useAppDispatch();
-  const playerName = useRef<string>();
   return (
     <Input
-      onChange={(e) => (playerName.current = e.target.value)}
-      onBlur={() => dispatch(addNamePlayer(playerName))}
+      value={props.value}
+      onChange={props.onChange}
       slots={{ input: InnerInput }}
       slotProps={{
         input: { placeholder: props.placeholder, label: props.label },

@@ -30,14 +30,16 @@ export type ProfileData = {
 }
 
 export type PlayerPlaceData = {
-    Id: string
-    Name: string
+    UserId: string
+    UserName: string
     Score: number
+    IsOccupied: boolean
 }
 
 export type MasterData = {
-    Id: string
-    Name: string
+    UserId: string
+    UserName: string
+    IsOccupied: boolean
 }
 
 export type LobbyData = {

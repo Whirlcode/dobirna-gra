@@ -25,7 +25,7 @@ export default function PlayerCard({
 }) {
   const [milisec, setMilisec] = useState(initialVal);
   const [openContextMenu, setOpenContextMenu] = useState(false);
-  const { createdBy, me } = useAppSelector((s) => s.userInfo);
+  const { amMaster } = useAppSelector((s) => s.gameState);
   const playerPoints = useRef<string>("0");
 
   const converter = (curr: number, targ: number) => {
@@ -163,7 +163,7 @@ export default function PlayerCard({
               {playerPoints.current}
             </Typography>
           </Box>
-          {createdBy === me &&
+          {amMaster &&
             <Button
               onClick={() => setOpenContextMenu((v) => !v)}
               sx={{

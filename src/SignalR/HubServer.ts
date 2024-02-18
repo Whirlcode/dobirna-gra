@@ -36,13 +36,12 @@ class HubServerImpl implements IHubServer {
     connection: signalR.HubConnection
 
     constructor() {
-        function getGameServerURL() {
-            const useLocalServer = true;
-            return useLocalServer ? "https://localhost:8000/gamehub" : "https://dobirnagraserver.onrender.com/gamehub"
+        function getServerURL() {
+            return import.meta.env.VITE_HUB_SERVER
         }
 
         this.connection = new signalR.HubConnectionBuilder()
-            .withUrl(getGameServerURL(), {
+            .withUrl(getServerURL(), {
                 skipNegotiation: true,
                 transport: signalR.HttpTransportType.WebSockets
             })

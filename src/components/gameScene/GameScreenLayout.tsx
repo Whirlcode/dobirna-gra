@@ -7,7 +7,8 @@ import EmptyAdminPlace from "@app/components/gameScene/gameMasterComp/EmptyAdmin
 
 export default function GameScreenLayout() {
 
-  const { lobby, amMaster } = useAppSelector((s) => s.gameState);
+  const IsOccupiedMaster = useAppSelector((s) => s.gameState.lobby?.Master.IsOccupied)
+  const amMaster = useAppSelector((s) => s.gameState.amMaster)
 
   return (
     <Box sx={{ display: "flex", width: "100%", flex: "1" }}>
@@ -46,7 +47,7 @@ export default function GameScreenLayout() {
           padding: "0px 20px",
           marginTop: "10vh",
         }}>
-        {lobby?.Master.IsOccupied
+        {IsOccupiedMaster
           ?
           <GameMasterCard />
           :

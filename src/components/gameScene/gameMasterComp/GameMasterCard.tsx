@@ -8,7 +8,8 @@ import { useState } from "react";
 import defImg from '@app/assets/maxresdefault.jpg'
 
 export default function GameMasterCard() {
-  const { lobby, amMaster } = useAppSelector((s) => s.gameState);
+  const amMaster = useAppSelector((s) => s.gameState.amMaster);
+  const MasterName = useAppSelector((s) => s.gameState.lobby?.Master.UserName);
   return (
     <>
       <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
@@ -46,7 +47,7 @@ export default function GameMasterCard() {
                 fontSize: "1.25vw",
                 minWidth: 250,
               }}>
-              {lobby?.Master.UserName}
+              {MasterName}
             </Typography>
           </Box>
           <TextOfGameMaster />

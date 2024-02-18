@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/joy";
 import ReadyORStartBtn from "./shared/ReadyORStartBtn";
 
 export default function IdleStageOfGame() {
-  const { amMaster } = useAppSelector((s) => s.gameState);
+  const amMaster = useAppSelector((s) => s.gameState.amMaster);
   const inviteCode = useAppSelector(s => s.gameState.lobby?.InviteCode)
   const inviteURL = `${location.host}/?room=${inviteCode}`;
   const packName = "Some random pack name";

@@ -25,7 +25,7 @@ export default function PlayerCard({
 }) {
   const [milisec, setMilisec] = useState(initialVal);
   const [openContextMenu, setOpenContextMenu] = useState(false);
-  const { amMaster } = useAppSelector((s) => s.gameState);
+  const amMaster = useAppSelector((s) => s.gameState.amMaster);
   const playerPoints = useRef<string>("0");
 
   const converter = (curr: number, targ: number) => {

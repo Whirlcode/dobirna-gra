@@ -68,6 +68,10 @@ class HubControllerImpl {
         await hubServer.seatMasterAsync();
     }
 
+    async unseat() {
+        await hubServer.unseatAsync();
+    }
+
     async setNumberPlaces(value: number){
         await hubServer.setNumberPlacesAsync(value);
     }

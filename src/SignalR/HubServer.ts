@@ -33,6 +33,7 @@ export interface IHubServer {
 
     seatAsync(index: number): Promise<void>
     seatMasterAsync(): Promise<void>
+    unseatAsync(): Promise<void>
 
     setNumberPlacesAsync(value: number): Promise<void>
     removePlaceAsync(index: number): Promise<void>
@@ -115,6 +116,10 @@ class HubServerImpl implements IHubServer {
 
     async seatMasterAsync(): Promise<void> {
         await this.connection.send("SeatMaster");
+    }
+
+    async unseatAsync(): Promise<void> {
+        await this.connection.send("Unseat");
     }
 
     async setNumberPlacesAsync(value: number): Promise<void> {

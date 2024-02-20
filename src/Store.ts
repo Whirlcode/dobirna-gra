@@ -6,13 +6,11 @@ import {
   TypedUseSelectorHook,
 } from "react-redux";
 import notificationSlice from "@app/features/notifications/notificationSlice";
-import userInfoSlice from "@app/features/userInfo/userInfoSlice";
 import gameStateSlice from "@app/features/gameState/gameStateSlice"
 
 export const appStore = configureStore({
   reducer: {
     notification: notificationSlice,
-    userInfo: userInfoSlice,
     gameState: gameStateSlice
   },
 });

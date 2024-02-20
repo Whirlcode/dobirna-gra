@@ -13,22 +13,25 @@ import {
 } from "@mui/joy";
 import { useEffect, useRef, useState } from "react";
 import defImg from '@app/assets/maxresdefault.jpg'
+import hubController from "@app/SignalR/HubController";
 
 export default function PlayerCard({
   initialVal,
   step,
   playerName,
-  scoreOfPlace
+  scoreOfPlace,
+  indexOfPlace
 }: {
   initialVal: number;
   step: number;
   playerName: string;
   scoreOfPlace: number
+  indexOfPlace: number
 }) {
   const [milisec, setMilisec] = useState(initialVal);
   const [openContextMenu, setOpenContextMenu] = useState(false);
   const amMaster = useAppSelector((s) => s.gameState.amMaster);
-  const playerPoints = useRef<string>("0");
+  const playerPoints = useRef<number>(0);
 
   const converter = (curr: number, targ: number) => {
     return (1 - curr / targ) * 100;
@@ -87,10 +90,11 @@ export default function PlayerCard({
               sx={{
                 position: "absolute",
                 bottom: "280px",
+                zIndex: 10
               }}
             >
               <Input
-                onChange={(e) => (playerPoints.current = e.target.value)}
+                onChange={(e) => (playerPoints.current = +e.target.value)}
                 sx={{
                   minHeight: 60,
                   "input::-webkit-outer-spin-button, input::-webkit-inner-spin-button":
@@ -109,6 +113,7 @@ export default function PlayerCard({
                   <Button
                     onClick={() => {
                       setOpenContextMenu(false);
+                      hubController.changeScore(indexOfPlace, playerPoints.current)
                     }}
                   >
                     Save

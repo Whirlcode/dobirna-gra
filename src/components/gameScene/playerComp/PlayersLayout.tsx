@@ -29,6 +29,7 @@ export default function PlayersLayout() {
                 initialVal={60000}
                 step={900}
                 playerName={user.UserName}
+                indexOfPlace={idx}
                 scoreOfPlace={user.Score}
               />
               :

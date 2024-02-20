@@ -4,19 +4,25 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
+  Input,
   ModalClose,
   Sheet,
+  Typography,
 } from "@mui/joy";
 import Drawer from "@mui/joy/Drawer";
 import Menu from "@mui/icons-material/Menu";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import SoundSlide from "@app/components/gameScene/shared/SoundSlide";
 
 
 import hubController from "@app/SignalR/HubController";
+import { useAppSelector } from "@app/Store";
 
 export default function DrawerMain() {
   const [open, setOpen] = useState(false);
+  const Places = useAppSelector(s => s.gameState.lobby?.Places)
+  const amMaster = useAppSelector(s => s.gameState.amMaster)
+  const numberOfTables = useRef<number>(Places!.length)
 
   return (
     <>
@@ -59,24 +65,46 @@ export default function DrawerMain() {
             <DialogTitle>Settings </DialogTitle>
             <DialogContent sx={{ display: "flex", gap: 2 }}>
               <SoundSlide />
+              {amMaster && <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} >
+                <Typography fontWeight={700}>
+                  Number of Tables
+                </Typography>
+                <Input
+                  sx={{
+                    "input::-webkit-outer-spin-button, input::-webkit-inner-spin-button":
+                    {
+                      "WebkitAppearance": "none", margin: 0
+                    },
+                    "input[type=number]": {
+                      "MozAppearance": "textfield"
+                    }
+                  }}
+                  variant="outlined"
+                  placeholder={`${Places!.length}`}
+                  endDecorator={
+                    <Button onClick={() => hubController.setNumberPlaces(numberOfTables.current)}>
+                      Enter
+                    </Button>
+                  }
+                  type="number"
+                  onChange={(e) => numberOfTables.current = +e.target.value}
+                />
+              </Box>}
+
             </DialogContent>
             <Box
               sx={{
                 display: "flex",
                 marginTop: "auto",
                 justifyContent: "center",
-              }}
-            >
-              <div>
-                <Button
-                  sx={{ width: "400px" }}
-                  onClick={() => {
-                    hubController.leaveLobby();
-                  }}
-                >
-                  Exit
-                </Button>
-              </div>
+              }}>
+              <Button
+                sx={{ width: "400px" }}
+                onClick={() => {
+                  hubController.leaveLobby();
+                }}>
+                Exit
+              </Button>
             </Box>
           </Sheet>
         </Drawer>

@@ -90,6 +90,7 @@ export default function PlayerCard({
               sx={{
                 position: "absolute",
                 bottom: "280px",
+                zIndex: 10
               }}
             >
               <Input

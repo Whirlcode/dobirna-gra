@@ -1,4 +1,4 @@
-import { AspectRatio, Box, Button, ButtonGroup, Card, Tooltip, Typography } from "@mui/joy";
+import { AspectRatio, Box, Button, ButtonGroup, Card, Snackbar, Tooltip, Typography } from "@mui/joy";
 import { useAppSelector } from "@app/Store";
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import SkipNextRoundedIcon from '@mui/icons-material/SkipNextRounded';
@@ -60,6 +60,7 @@ export default function GameMasterCard() {
 
 function ControlGameFlowButtons() {
   const [isPaused, setIsPaused] = useState(false)
+  const [openModalSkipRound, setOpenModalSkipRound] = useState(false)
 
   const handlePauseClick = () => {
     setIsPaused((v) => !v)
@@ -90,11 +91,12 @@ function ControlGameFlowButtons() {
           </Button>
         </Tooltip>
         <Tooltip placement="left" size="lg" title="Skip Round">
-          <Button key="skipRound" sx={{ height: "4vw", padding: '0' }}>
+          <Button onClick={() => setOpenModalSkipRound((v) => !v)} key="skipRound" sx={{ height: "4vw", padding: '0' }}>
             <KeyboardTabRoundedIcon sx={{ fontSize: '50px', color: 'rgb(255, 86, 86)' }} />
           </Button>
         </Tooltip>
       </ButtonGroup>
+      <ModalForSkipRound open={openModalSkipRound} />
     </>
   )
 }
@@ -126,4 +128,49 @@ function TextOfGameMaster() {
       </Box>
     </>
   )
+}
+
+
+function ModalForSkipRound({ open }: { open: boolean }) {
+  return <>
+    <Snackbar
+      variant="soft"
+      anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
+      open={open}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '200px',
+        padding: '20px',
+        justifyContent: 'space-evenly'
+      }}>
+      <Box>
+        <Typography level="h2">Do you want to skip this round?</Typography>
+      </Box>
+      <Box>
+        <ButtonGroup
+          sx={{ width: '500px' }}
+          buttonFlex={1}
+          aria-label="flex button group"
+        >
+          <Button sx={{
+            ":hover": { boxShadow: "0px 0px 20px 10px rgb(130, 255, 146)" },
+            fontSize: '18px'
+          }}
+            color="success"
+            variant="soft"
+          >Yes
+          </Button>
+          <Button sx={{
+            ":hover": { boxShadow: "0px 0px 20px 10px rgb(255, 112, 112)" },
+            fontSize: '18px'
+          }}
+            color="danger"
+            variant="soft"
+          >No
+          </Button>
+        </ButtonGroup>
+      </Box>
+    </Snackbar>
+  </>
 }

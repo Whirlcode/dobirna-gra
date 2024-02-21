@@ -77,12 +77,13 @@ export default function EnterPage() {
   const isInLobby = useAppSelector(s => s.gameState.lobby?.Id) != null;
   return (
     <>
-      {isInLobby && <Navigate to="/game"/>}
+      {isInLobby && <Navigate to="/game" />}
       <Box
         sx={{
           display: "flex",
           width: "100%",
-          marginTop: "50px",
+          position: 'fixed',
+          top: "50px",
           borderRadius: "xs",
         }}
       >

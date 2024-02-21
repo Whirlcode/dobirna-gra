@@ -1,9 +1,9 @@
 import { Box } from "@mui/joy";
 import GameMasterCard from "@app/components/gameScene/gameMasterComp/GameMasterCard";
 import BigAnswerButton from "@app/components/gameScene/shared/BigAnswerButton";
-import IdleStageOfGame from "@app/components/gameScene/IdleStage.GameScreen";
 import { useAppSelector } from "@app/Store";
 import EmptyAdminPlace from "@app/components/gameScene/gameMasterComp/EmptyAdminPlace";
+import IdleStageOfGame from "@app/components/gameScene/IdleStage.GameScreen";
 
 export default function GameScreenLayout() {
 
@@ -11,7 +11,7 @@ export default function GameScreenLayout() {
   const amMaster = useAppSelector((s) => s.gameState.amMaster)
 
   return (
-    <Box sx={{ display: "flex", width: "100%", flex: "1" }}>
+    <Box sx={{ display: "flex", width: "100%", height: "60vh", flex: "1" }}>
       <Box
         sx={{
           display: "flex",

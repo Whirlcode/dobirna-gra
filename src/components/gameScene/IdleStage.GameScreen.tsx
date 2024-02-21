@@ -28,7 +28,8 @@ export default function IdleStageOfGame() {
           sx={theme =>
           ({
             color: theme.vars.palette.primary[500],
-            width: 'fit-content'
+            width: 'fit-content',
+            userSelect: 'all'
           })}>
           {inviteURL}
         </Typography>

@@ -23,6 +23,7 @@ export default function GamePage() {
           height: "100%",
           width: "100%",
           alignItems: "center",
+          gap: '5px'
         }}
       >
         <GameScreenLayout />

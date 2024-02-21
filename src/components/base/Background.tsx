@@ -5,8 +5,8 @@ export default function DefaultBackground() {
     <>
       <Box
         sx={(theme) => ({
-          height: "100vh",
-          width: "100vw",
+          height: "100%",
+          width: "100%",
           position: "absolute",
           right: 0,
           top: 0,
@@ -26,8 +26,8 @@ export default function DefaultBackground() {
       <Box
         color="transparent"
         sx={{
-          height: "100vh",
-          width: "100vw",
+          height: "100%",
+          width: "100%",
           position: "absolute",
           right: 0,
           top: 0,

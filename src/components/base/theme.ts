@@ -53,7 +53,7 @@ const theme = extendTheme({
           900: "#29389a",
         },
         background: {
-          body: "#181818",
+          body: "#bababc",
           popup: "#f4fbec"
         },
         danger: {
@@ -88,7 +88,7 @@ const theme = extendTheme({
           900: "#263238",
         },
         background: {
-          body: "#f4fffb",
+          body: "#181818",
           popup: "#010808",
           tooltip: "#010808"
         }

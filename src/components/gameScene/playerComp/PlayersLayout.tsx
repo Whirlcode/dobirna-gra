@@ -12,10 +12,10 @@ export default function PlayersLayout() {
         display: "flex",
         justifyContent: "center",
         position: "relative",
-        padding: "10px",
+        m: '10px 0px',
         borderRadius: 25,
         width: "100%",
-        gap: 4,
+        gap: '25px',
         flexWrap: "wrap",
       }}
     >

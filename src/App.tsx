@@ -8,6 +8,7 @@ import ThemeToggle from "@app/components/base/ThemeToggle";
 
 import NotificationCenter from "@app/features/notifications/NotificationCenter";
 import theme from "@app/components/base/theme";
+import { Box } from "@mui/joy";
 
 export default function App() {
   return (
@@ -15,7 +16,9 @@ export default function App() {
       <CssBaseline />
       <DefaultBackground />
       <ThemeToggle />
-      <Outlet/>
+      <Box sx={{ userSelect: 'none', height: "100%" }}>
+        <Outlet />
+      </Box>
       <NotificationCenter />
     </CssVarsProvider>
   );

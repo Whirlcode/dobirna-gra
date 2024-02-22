@@ -10,6 +10,7 @@ import defImg from '@app/assets/maxresdefault.jpg'
 export default function GameMasterCard() {
   const amMaster = useAppSelector((s) => s.gameState.amMaster);
   const MasterName = useAppSelector((s) => s.gameState.lobby?.Master.UserName);
+  const MasterImgId = useAppSelector((s) => s.gameState.lobby?.Master.ImageId ?? '');
   return (
     <>
       <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
@@ -25,7 +26,8 @@ export default function GameMasterCard() {
             borderRadius: "25px",
           }}>
           <AspectRatio sx={{ minWidth: "100%" }} minHeight="250px">
-            <img src={defImg} loading="lazy" alt="" />
+            <img src={MasterImgId === '' ? defImg : `${import.meta.env.VITE_API}/Asset/profile/get/${MasterImgId}`}
+              loading="lazy" alt="" />
           </AspectRatio>
           <Box
             sx={{

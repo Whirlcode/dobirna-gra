@@ -31,6 +31,7 @@ export default function PlayersLayout() {
                 playerName={user.UserName}
                 indexOfPlace={idx}
                 scoreOfPlace={user.Score}
+                imgId={user.ImageId}
               />
               :
               <EmptyPlayerPlace key={user.UserId} seatIdx={idx} />

@@ -22,7 +22,7 @@ export default function DrawerMain() {
   const [open, setOpen] = useState(false);
   const Places = useAppSelector(s => s.gameState.lobby?.Places)
   const amMaster = useAppSelector(s => s.gameState.amMaster)
-  const numberOfTables = useRef<number>(Places!.length)
+  const numberOfTables = useRef<number>(Places?.length ?? 0)
 
   return (
     <>

@@ -38,12 +38,14 @@ export type PlayerPlaceData = {
     UserId: string
     UserName: string
     Score: number
+    ImageId: string
     IsOccupied: boolean
 }
 
 export type MasterData = {
     UserId: string
     UserName: string
+    ImageId: string
     IsOccupied: boolean
 }
 

@@ -5,7 +5,7 @@ import SkipNextRoundedIcon from '@mui/icons-material/SkipNextRounded';
 import PauseRoundedIcon from '@mui/icons-material/PauseRounded';
 import KeyboardTabRoundedIcon from '@mui/icons-material/KeyboardTabRounded';
 import { useState } from "react";
-import defImg from '@app/assets/maxresdefault.jpg'
+import DefaultUserImage from '@app/assets/maxresdefault.jpg'
 
 export default function GameMasterCard() {
   const amMaster = useAppSelector((s) => s.gameState.amMaster);
@@ -26,7 +26,7 @@ export default function GameMasterCard() {
             borderRadius: "25px",
           }}>
           <AspectRatio sx={{ minWidth: "100%" }} minHeight="250px">
-            <img src={MasterImgId === '' ? defImg : `${import.meta.env.VITE_API}/Asset/profile/get/${MasterImgId}`}
+            <img src={MasterImgId === '' ? DefaultUserImage : `${import.meta.env.VITE_API}/Asset/profile/get/${MasterImgId}`}
               loading="lazy" alt="" />
           </AspectRatio>
           <Box

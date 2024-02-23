@@ -13,7 +13,16 @@ import {
 } from "@mui/joy";
 import { useEffect, useRef, useState } from "react";
 import hubController from "@app/SignalR/HubController";
-import defImg from '@app/assets/maxresdefault.jpg'
+import DefaultUserImage from '@app/assets/maxresdefault.jpg'
+
+type TPlayerCardData = {
+  initialVal: number;
+  step: number;
+  playerName: string;
+  scoreOfPlace: number;
+  indexOfPlace: number;
+  imgId: string;
+}
 
 export default function PlayerCard({
   initialVal,
@@ -22,14 +31,7 @@ export default function PlayerCard({
   scoreOfPlace,
   indexOfPlace,
   imgId
-}: {
-  initialVal: number;
-  step: number;
-  playerName: string;
-  scoreOfPlace: number;
-  indexOfPlace: number;
-  imgId: string;
-}) {
+}: TPlayerCardData) {
   const [milisec, setMilisec] = useState(initialVal);
   const [openContextMenu, setOpenContextMenu] = useState(false);
   const amMaster = useAppSelector((s) => s.gameState.amMaster);
@@ -126,7 +128,7 @@ export default function PlayerCard({
             </Box>
           )}
           <AspectRatio minHeight={170} sx={{ minWidth: 170, borderRadius: "5px", }}>
-            <img src={imgId === '' ? defImg : `${import.meta.env.VITE_API}/asset/profile/get/${imgId}`}
+            <img src={imgId === '' ? DefaultUserImage : `${import.meta.env.VITE_API}/asset/profile/get/${imgId}`}
               loading="lazy"
               alt="" />
           </AspectRatio>

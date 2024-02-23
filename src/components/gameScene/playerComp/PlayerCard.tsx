@@ -79,7 +79,7 @@ export default function PlayerCard({
         <Card
           sx={{
             display: "flex",
-            minWidth: "150px",
+            minWidth: "190px",
             maxWidth: "190px",
             height: "250px",
             alignItems: "center",
@@ -93,6 +93,11 @@ export default function PlayerCard({
           {openContextMenu && (
             <Box
               sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                width: 'fit-content',
+                gap: "5px",
                 position: "absolute",
                 bottom: "280px",
                 zIndex: 10
@@ -101,11 +106,10 @@ export default function PlayerCard({
               <Input
                 onChange={(e) => (playerPoints.current = +e.target.value)}
                 sx={{
-                  minHeight: 60,
+                  minHeight: 65,
                   "input::-webkit-outer-spin-button, input::-webkit-inner-spin-button":
                   {
                     "WebkitAppearance": "none",
-                    margin: 0,
                   },
                   "input[type=number]": {
                     "MozAppearance": "textfield",
@@ -116,6 +120,7 @@ export default function PlayerCard({
                 placeholder="Set Points"
                 endDecorator={
                   <Button
+                    size="lg"
                     onClick={() => {
                       setOpenContextMenu(false);
                       hubController.changeScore(indexOfPlace, playerPoints.current)
@@ -125,9 +130,10 @@ export default function PlayerCard({
                   </Button>
                 }
               />
+              <Button onClick={() => hubController.removePlace(indexOfPlace)}>Remove place</Button>
             </Box>
           )}
-          <AspectRatio minHeight={170} sx={{ minWidth: 170, borderRadius: "5px", }}>
+          <AspectRatio minHeight={170} sx={{ minWidth: "180px", borderRadius: "5px", }}>
             <img src={imgId === '' ? DefaultUserImage : `${import.meta.env.VITE_API}/asset/profile/get/${imgId}`}
               loading="lazy"
               alt="" />
@@ -184,7 +190,7 @@ export default function PlayerCard({
                 position: "absolute",
                 p: 0,
                 height: 170,
-                width: 170,
+                width: "180px",
                 ":hover": { backgroundColor: "rgba(187, 222, 251, 0.3)" },
               }}
               component="label"

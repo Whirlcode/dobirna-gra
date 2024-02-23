@@ -12,22 +12,26 @@ import {
   Typography,
 } from "@mui/joy";
 import { useEffect, useRef, useState } from "react";
-import defImg from '@app/assets/maxresdefault.jpg'
 import hubController from "@app/SignalR/HubController";
+import DefaultUserImage from '@app/assets/maxresdefault.jpg'
+
+type TPlayerCardData = {
+  initialVal: number;
+  step: number;
+  playerName: string;
+  scoreOfPlace: number;
+  indexOfPlace: number;
+  imgId: string;
+}
 
 export default function PlayerCard({
   initialVal,
   step,
   playerName,
   scoreOfPlace,
-  indexOfPlace
-}: {
-  initialVal: number;
-  step: number;
-  playerName: string;
-  scoreOfPlace: number
-  indexOfPlace: number
-}) {
+  indexOfPlace,
+  imgId
+}: TPlayerCardData) {
   const [milisec, setMilisec] = useState(initialVal);
   const [openContextMenu, setOpenContextMenu] = useState(false);
   const amMaster = useAppSelector((s) => s.gameState.amMaster);
@@ -79,7 +83,8 @@ export default function PlayerCard({
             maxWidth: "190px",
             height: "250px",
             alignItems: "center",
-            padding: "10px",
+            padding: "5px",
+            borderRadius: "5px",
             gap: 0,
             border: 0,
             ...(openContextMenu && { boxShadow: "0px 0px 20px 10px aqua" }),
@@ -122,8 +127,10 @@ export default function PlayerCard({
               />
             </Box>
           )}
-          <AspectRatio minHeight={170} sx={{ minWidth: 170 }}>
-            <img src={defImg} loading="lazy" alt="" />
+          <AspectRatio minHeight={170} sx={{ minWidth: 170, borderRadius: "5px", }}>
+            <img src={imgId === '' ? DefaultUserImage : `${import.meta.env.VITE_API}/asset/profile/get/${imgId}`}
+              loading="lazy"
+              alt="" />
           </AspectRatio>
           <Box
             sx={{

@@ -1,6 +1,7 @@
+import { useAppSelector } from "@app/Store";
 import { AspectRatio, Box, Button, styled } from "@mui/joy";
 import { useState } from "react";
-
+import UploadImagePlaceholder from "@app/assets/48af63.svg";
 const VisuallyHiddenInput = styled("input")`
   height: 1px;
   width: 1px;
@@ -12,14 +13,21 @@ const VisuallyHiddenInput = styled("input")`
 `;
 
 export default function UploadImgButton() {
-  const [userImg, setUserImg] = useState<string>(
-    "https://placehold.co/600x400?text=Choose+your+picture"
-  );
+  const me = useAppSelector(s => s.gameState.me)
+  const [userImg, setUserImg] = useState<string>(UploadImagePlaceholder);
 
-  const handleImageChange = (files: FileList | null) => {
+  const handleImageChange = async (files: FileList | null) => {
     if (files === null) return;
     const file = files[0];
     setUserImg(URL.createObjectURL(file));
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('userId', me)
+    const url = `${import.meta.env.VITE_API}/asset/profile/upload`
+    await fetch(url, {
+      method: 'POST',
+      body: formData
+    })
   };
 
   return (

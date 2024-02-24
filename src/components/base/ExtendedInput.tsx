@@ -1,8 +1,9 @@
-import React, { ChangeEventHandler } from "react";
+import React, { InputHTMLAttributes } from "react";
 import { styled } from "@mui/joy/styles";
-import Input from "@mui/joy/Input";
+import Input, { InputTypeMap } from "@mui/joy/Input";
+import { DefaultComponentProps } from '@mui/types'
 
-const StyledInput = styled("input")({
+const StyledFloatingInput = styled("input")({
   border: "none",
   minWidth: 0,
   outline: 0,
@@ -45,7 +46,7 @@ const StyledInput = styled("input")({
   },
 });
 
-const StyledLabel = styled("label")(({ theme }) => ({
+const StyledFloatingLabel = styled("label")(({ theme }) => ({
   position: "absolute",
   lineHeight: 1,
   top: "calc((var(--Input-minHeight) - 1em) / 2)",
@@ -54,44 +55,42 @@ const StyledLabel = styled("label")(({ theme }) => ({
   transition: "all 150ms cubic-bezier(0.4, 0, 0.2, 1)",
 }));
 
-interface InnerInputProps {
-  label: string;
-  placeholder: string;
+interface ExtendedInputProps {
+  label: string | undefined
 }
 
-const InnerInput = React.forwardRef<HTMLInputElement, InnerInputProps>(
+interface ExtendedInputTypeMap extends InputTypeMap<ExtendedInputProps & InputHTMLAttributes<HTMLInputElement>> {}
+
+const ExtendedInnerInput = React.forwardRef<HTMLInputElement, DefaultComponentProps<ExtendedInputTypeMap>>(
   (props, ref) => {
     const id = React.useId();
     return (
       <React.Fragment>
-        <StyledInput {...props} ref={ref} id={id} />
-        <StyledLabel htmlFor={id}>{props.label}</StyledLabel>
+        <StyledFloatingInput {...props} ref={ref} id={id}/>
+        <StyledFloatingLabel htmlFor={id}>{props.label}</StyledFloatingLabel>
       </React.Fragment>
     );
   }
 );
 
-interface FloatingInputProps {
-  label: string
-  placeholder: string
-  value?: string | readonly string[] | number | undefined
-  onChange?: ChangeEventHandler<HTMLInputElement> | undefined
-}
+const DefaultSx = {
+  "--Input-minHeight": "56px",
+  "--Input-radius": "6px",
+  height: "60px",
+  width: "100%",
+};
 
-export default function FloatingInput(props: FloatingInputProps) {
+export default function ExtendedInput(props: DefaultComponentProps<ExtendedInputTypeMap>) {
   return (
     <Input
-      value={props.value}
-      onChange={props.onChange}
-      slots={{ input: InnerInput }}
+      {...props}
+      slots={{ input: ExtendedInnerInput }}
       slotProps={{
-        input: { placeholder: props.placeholder, label: props.label },
+        input: { label: props.label, placeholder: props.placeholder }
       }}
       sx={{
-        "--Input-minHeight": "56px",
-        "--Input-radius": "6px",
-        height: "60px",
-        width: "100%",
+        ...DefaultSx,
+        ...props.sx
       }}
     />
   );

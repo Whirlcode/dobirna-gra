@@ -55,24 +55,6 @@ const StyledFloatingLabel = styled("label")(({ theme }) => ({
   transition: "all 150ms cubic-bezier(0.4, 0, 0.2, 1)",
 }));
 
-interface ExtendedInputProps {
-  label: string | undefined
-}
-
-interface ExtendedInputTypeMap extends InputTypeMap<ExtendedInputProps & InputHTMLAttributes<HTMLInputElement>> {}
-
-const ExtendedInnerInput = React.forwardRef<HTMLInputElement, DefaultComponentProps<ExtendedInputTypeMap>>(
-  (props, ref) => {
-    const id = React.useId();
-    return (
-      <React.Fragment>
-        <StyledFloatingInput {...props} ref={ref} id={id}/>
-        <StyledFloatingLabel htmlFor={id}>{props.label}</StyledFloatingLabel>
-      </React.Fragment>
-    );
-  }
-);
-
 const DefaultSx = {
   "--Input-minHeight": "56px",
   "--Input-radius": "6px",
@@ -80,18 +62,53 @@ const DefaultSx = {
   width: "100%",
 };
 
+const HideArrowSx = {
+  "&::-webkit-outer-spin-button, &::-webkit-inner-spin-button":
+  {
+    "WebkitAppearance": "none",
+    margin: 0,
+  },
+  "&[type=number]": {
+    "MozAppearance": "textfield",
+  }
+}
+
+interface ExtendedInputProps {
+  label: string,
+  hideArrow?: boolean
+}
+
+interface ExtendedInputTypeMap extends InputTypeMap<ExtendedInputProps & InputHTMLAttributes<HTMLInputElement>> {}
+
+const ExtendedInnerInput = React.forwardRef<HTMLInputElement, DefaultComponentProps<ExtendedInputTypeMap>>(
+  (props, ref) => {
+    const id = React.useId();
+    const additionalSx = props.hideArrow ? HideArrowSx : {};
+    return (
+      <React.Fragment>
+        <StyledFloatingInput 
+        {...props} 
+        ref={ref} 
+        id={id} 
+        sx={{
+          ...props.sx,
+          ...additionalSx
+          }}
+        />
+        <StyledFloatingLabel htmlFor={id}>{props.label}</StyledFloatingLabel>
+      </React.Fragment>
+    );
+  }
+);
+
 export default function ExtendedInput(props: DefaultComponentProps<ExtendedInputTypeMap>) {
+  const { ...InnerProps } : ExtendedInputTypeMap["props"] = props;
   return (
     <Input
       {...props}
       slots={{ input: ExtendedInnerInput }}
-      slotProps={{
-        input: { label: props.label, placeholder: props.placeholder }
-      }}
-      sx={{
-        ...DefaultSx,
-        ...props.sx
-      }}
+      slotProps={{ input: InnerProps }}
+      sx={{ ...DefaultSx, ...props.sx }}
     />
   );
 }

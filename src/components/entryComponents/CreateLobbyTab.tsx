@@ -1,7 +1,7 @@
 import { Box, Button, Card, Input, Typography } from "@mui/joy";
 import ExtendedInput from "@app/components/base/ExtendedInput";
 import { ChangeEvent, useState, useRef } from "react";
-import InputNoArrows from "@app/components/base/InputNoArrows";
+import PlayerCountInput from "@app/components/entryComponents/PlayerCountInput";
 
 import { styled } from "@mui/joy";
 import UploadImgButton from "./UploadImgButton";
@@ -63,7 +63,7 @@ export default function CreateLobbyTab() {
           }}
         >
           <ExtendedInput label="Name room" placeholder="Name room" sx={{ minHeight: 60 }} type="text" onChange={onChangeRoomName} />
-          <InputNoArrows count={playerCount} setCount={setPlayerCount} />
+          <PlayerCountInput count={playerCount} setCount={setPlayerCount} />
           {playerCount > 10 && (
             <Typography
               sx={{ padding: "10px, 0px ,10px, 0px" }}

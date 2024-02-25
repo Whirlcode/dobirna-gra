@@ -1,6 +1,6 @@
 import ExtendedInput from "@app/components/base/ExtendedInput";
 
-export default function InputNoArrows({
+export default function PlayerCountInput({
   count,
   setCount,
 }: {

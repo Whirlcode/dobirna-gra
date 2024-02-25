@@ -78,36 +78,41 @@ interface ExtendedInputProps {
   hideArrow?: boolean
 }
 
-interface ExtendedInputTypeMap extends InputTypeMap<ExtendedInputProps & InputHTMLAttributes<HTMLInputElement>> {}
+interface ExtendedInputTypeMap extends InputTypeMap<ExtendedInputProps & InputHTMLAttributes<HTMLInputElement>> { }
 
 const ExtendedInnerInput = React.forwardRef<HTMLInputElement, DefaultComponentProps<ExtendedInputTypeMap>>(
   (props, ref) => {
     const id = React.useId();
-    const additionalSx = props.hideArrow ? HideArrowSx : {};
+    const { hideArrow, label, ...otherProps } = props;
+    const additionalSx = hideArrow ? HideArrowSx : {};
     return (
       <React.Fragment>
-        <StyledFloatingInput 
-        {...props} 
-        ref={ref} 
-        id={id} 
-        sx={{
-          ...props.sx,
-          ...additionalSx
+        <StyledFloatingInput
+          {...otherProps}
+          ref={ref}
+          id={id}
+          sx={{
+            ...props.sx,
+            ...additionalSx
           }}
         />
-        <StyledFloatingLabel htmlFor={id}>{props.label}</StyledFloatingLabel>
+        <StyledFloatingLabel htmlFor={id}>{label}</StyledFloatingLabel>
       </React.Fragment>
     );
   }
 );
 
 export default function ExtendedInput(props: DefaultComponentProps<ExtendedInputTypeMap>) {
-  const { ...InnerProps } : ExtendedInputTypeMap["props"] = props;
+  const {
+    label,
+    hideArrow,
+    ...otherProps
+  }: ExtendedInputTypeMap["props"] = props;
   return (
     <Input
-      {...props}
+      {...otherProps}
       slots={{ input: ExtendedInnerInput }}
-      slotProps={{ input: InnerProps }}
+      slotProps={{ input: { label, hideArrow, ...otherProps } }}
       sx={{ ...DefaultSx, ...props.sx }}
     />
   );

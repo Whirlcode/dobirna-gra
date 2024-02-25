@@ -32,7 +32,7 @@ export default function EnterLobbyTab() {
             alignItems: "center",
             gap: "16px",
             p: '15px 140px',
-            border: `2px solid ${theme.vars.palette.neutral[800]}`,
+            border: `1px solid ${theme.vars.palette.neutral.outlinedBorder}`,
             borderRadius: 'lg'
           })}
         >
@@ -52,7 +52,7 @@ export default function EnterLobbyTab() {
             alignItems: "center",
             gap: "16px",
             p: '15px 140px',
-            border: `2px solid ${theme.vars.palette.neutral[800]}`,
+            border: `1px solid ${theme.vars.palette.neutral.outlinedBorder}`,
             borderRadius: 'lg'
           })}
         >
@@ -74,10 +74,7 @@ export default function EnterLobbyTab() {
                   hubController.joinLobby(inviteCode, playerName.current)
                 }}
               >
-                <Typography
-                  sx={theme => ({ color: theme.vars.palette.common.black })}
-                  fontWeight={500}
-                >
+                <Typography sx={theme => ({ color: theme.vars.palette.neutral.solidColor })} fontWeight={500}>
                   Join room
                 </Typography>
               </Button>

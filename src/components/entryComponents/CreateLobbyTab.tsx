@@ -49,7 +49,7 @@ export default function CreateLobbyTab() {
             alignItems: "center",
             gap: "16px",
             p: '15px 140px',
-            border: `2px solid ${theme.vars.palette.neutral[800]}`,
+            border: `1px solid ${theme.vars.palette.neutral.outlinedBorder}`,
             borderRadius: 'lg'
           })}
         >
@@ -69,7 +69,7 @@ export default function CreateLobbyTab() {
             alignItems: "center",
             gap: "16px",
             p: '15px 140px',
-            border: `2px solid ${theme.vars.palette.neutral[800]}`,
+            border: `1px solid ${theme.vars.palette.neutral.outlinedBorder}`,
             borderRadius: 'lg'
           })}
         >
@@ -110,7 +110,7 @@ export default function CreateLobbyTab() {
         >
           <Typography
             level="title-md"
-            sx={theme => ({ color: theme.vars.palette.common.black })}
+            sx={theme => ({ color: theme.vars.palette.neutral.solidColor })}
             fontWeight={500}
           >
             Create new room

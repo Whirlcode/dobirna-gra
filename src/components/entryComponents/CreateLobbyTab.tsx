@@ -1,6 +1,6 @@
-import { Box, Button, Card, Input, Typography } from "@mui/joy";
+import { Box, Button, Card } from "@mui/joy";
 import ExtendedInput from "@app/components/base/ExtendedInput";
-import { ChangeEvent, useState, useRef } from "react";
+import { ChangeEvent, useRef } from "react";
 import PlayerCountInput from "@app/components/entryComponents/PlayerCountInput";
 
 import { styled } from "@mui/joy";
@@ -19,9 +19,9 @@ const VisuallyHiddenInput = styled("input")`
 `;
 
 export default function CreateLobbyTab() {
-  const [playerCount, setPlayerCount] = useState<number>(0)
   const playerName = useRef<string>("")
-  const roomName = useRef('');
+  const roomName = useRef('')
+  const playerCount = useRef(0)
 
   function onChangeRoomName(event: React.ChangeEvent<{ value: string }>) {
     roomName.current = event.target.value
@@ -63,18 +63,7 @@ export default function CreateLobbyTab() {
           }}
         >
           <ExtendedInput label="Name room" placeholder="Name room" sx={{ minHeight: 60 }} type="text" onChange={onChangeRoomName} />
-          <PlayerCountInput count={playerCount} setCount={setPlayerCount} />
-          {playerCount > 10 && (
-            <Typography
-              sx={{ padding: "10px, 0px ,10px, 0px" }}
-              color="danger"
-              level="body-sm"
-              noWrap
-              variant="plain"
-            >
-              10 is Maximum players
-            </Typography>
-          )}
+          <PlayerCountInput refValue={playerCount} maxValue={10} />
           <Button
             sx={{
               ":hover": {
@@ -98,7 +87,7 @@ export default function CreateLobbyTab() {
         <Button
           sx={{ display: "flex" }}
           onClick={() => {
-            hubController.createLobby(roomName.current, playerCount, playerName.current);
+            hubController.createLobby(roomName.current, playerCount.current, playerName.current);
           }}
         >
           Create new room

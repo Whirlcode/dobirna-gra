@@ -1,4 +1,4 @@
-import { Input } from "@mui/joy";
+import ExtendedInput from "@app/components/base/ExtendedInput";
 
 export default function InputWithoutArrows({
   count,
@@ -9,23 +9,17 @@ export default function InputWithoutArrows({
 }) {
   return (
     <>
-      <Input
+      <ExtendedInput
+        label="Count of players"
+        placeholder="10 max"
+        hideArrow={true}
+        type="number"
         sx={{
-          minHeight: 60,
-          "input::-webkit-outer-spin-button, input::-webkit-inner-spin-button":
-          {
-            "WebkitAppearance": "none",
-            margin: 0,
-          },
-          "input[type=number]": {
-            "MozAppearance": "textfield",
-          },
+          minHeight: 60
         }}
         variant="outlined"
         endDecorator={false}
         color={count > 10 ? "danger" : "neutral"}
-        type="number"
-        placeholder="Count of players"
         onChange={(e) => {
           setCount(+e.target.value);
         }}

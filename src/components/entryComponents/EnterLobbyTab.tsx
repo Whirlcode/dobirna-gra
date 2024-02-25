@@ -4,7 +4,7 @@ import { Box, Card } from "@mui/joy";
 import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
 import KeyIcon from "@mui/icons-material/Key";
-import FloatingInput from "@app/components/entryComponents/FloatingInput";
+import FloatingInput from "@app/components/base/ExtendedInput";
 
 import UploadImgButton from "@app/components/entryComponents/UploadImgButton";
 

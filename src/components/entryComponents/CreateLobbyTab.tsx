@@ -1,7 +1,7 @@
-import { Box, Button, Card, Input, Typography } from "@mui/joy";
-import FloatingInput from "@app/components/entryComponents/FloatingInput";
-import { ChangeEvent, useState, useRef } from "react";
-import InputWithoutArrows from "./InputWithoutArrows";
+import { Box, Button, Card } from "@mui/joy";
+import ExtendedInput from "@app/components/base/ExtendedInput";
+import { ChangeEvent, useRef } from "react";
+import PlayerCountInput from "@app/components/entryComponents/PlayerCountInput";
 
 import { styled } from "@mui/joy";
 import UploadImgButton from "./UploadImgButton";
@@ -19,9 +19,9 @@ const VisuallyHiddenInput = styled("input")`
 `;
 
 export default function CreateLobbyTab() {
-  const [playerCount, setPlayerCount] = useState<number>(0)
   const playerName = useRef<string>("")
-  const roomName = useRef('');
+  const roomName = useRef('')
+  const playerCount = useRef(0)
 
   function onChangeRoomName(event: React.ChangeEvent<{ value: string }>) {
     roomName.current = event.target.value
@@ -51,7 +51,7 @@ export default function CreateLobbyTab() {
           }}
         >
           <UploadImgButton />
-          <FloatingInput label="Name" placeholder="John Doe" onChange={onChangeName}/>
+          <ExtendedInput label="Name" placeholder="John Doe" onChange={onChangeName}/>
         </Box>
         <Box
           sx={{
@@ -62,19 +62,8 @@ export default function CreateLobbyTab() {
             maxWidth: "50%",
           }}
         >
-          <Input sx={{ minHeight: 60 }} type="text" placeholder="Name room" onChange={onChangeRoomName} />
-          <InputWithoutArrows count={playerCount} setCount={setPlayerCount} />
-          {playerCount > 10 && (
-            <Typography
-              sx={{ padding: "10px, 0px ,10px, 0px" }}
-              color="danger"
-              level="body-sm"
-              noWrap
-              variant="plain"
-            >
-              10 is Maximum players
-            </Typography>
-          )}
+          <ExtendedInput label="Name room" placeholder="Name room" sx={{ minHeight: 60 }} type="text" onChange={onChangeRoomName} />
+          <PlayerCountInput refValue={playerCount} maxValue={10} />
           <Button
             sx={{
               ":hover": {
@@ -98,7 +87,7 @@ export default function CreateLobbyTab() {
         <Button
           sx={{ display: "flex" }}
           onClick={() => {
-            hubController.createLobby(roomName.current, playerCount, playerName.current);
+            hubController.createLobby(roomName.current, playerCount.current, playerName.current);
           }}
         >
           Create new room

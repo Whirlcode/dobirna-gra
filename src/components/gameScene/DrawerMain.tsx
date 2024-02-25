@@ -90,7 +90,9 @@ export default function DrawerMain() {
                   onChange={(e) => numberOfTables.current = +e.target.value}
                 />
               </Box>}
-
+              <Box>
+                <Button color="neutral" onClick={() => hubController.unseat()}>Leave Table</Button>
+              </Box>
             </DialogContent>
             <Box
               sx={{
@@ -99,11 +101,12 @@ export default function DrawerMain() {
                 justifyContent: "center",
               }}>
               <Button
+                color="danger"
                 sx={{ width: "400px" }}
                 onClick={() => {
                   hubController.leaveLobby();
                 }}>
-                Exit
+                Exit Lobby
               </Button>
             </Box>
           </Sheet>

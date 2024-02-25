@@ -12,22 +12,26 @@ import {
   Typography,
 } from "@mui/joy";
 import { useEffect, useRef, useState } from "react";
-import defImg from '@app/assets/maxresdefault.jpg'
 import hubController from "@app/SignalR/HubController";
+import DefaultUserImage from '@app/assets/maxresdefault.jpg'
+
+type TPlayerCardData = {
+  initialVal: number;
+  step: number;
+  playerName: string;
+  scoreOfPlace: number;
+  indexOfPlace: number;
+  imgId: string;
+}
 
 export default function PlayerCard({
   initialVal,
   step,
   playerName,
   scoreOfPlace,
-  indexOfPlace
-}: {
-  initialVal: number;
-  step: number;
-  playerName: string;
-  scoreOfPlace: number
-  indexOfPlace: number
-}) {
+  indexOfPlace,
+  imgId
+}: TPlayerCardData) {
   const [milisec, setMilisec] = useState(initialVal);
   const [openContextMenu, setOpenContextMenu] = useState(false);
   const amMaster = useAppSelector((s) => s.gameState.amMaster);
@@ -75,11 +79,12 @@ export default function PlayerCard({
         <Card
           sx={{
             display: "flex",
-            minWidth: "150px",
+            minWidth: "190px",
             maxWidth: "190px",
             height: "250px",
             alignItems: "center",
-            padding: "10px",
+            padding: "5px",
+            borderRadius: "5px",
             gap: 0,
             border: 0,
             ...(openContextMenu && { boxShadow: "0px 0px 20px 10px aqua" }),
@@ -88,6 +93,11 @@ export default function PlayerCard({
           {openContextMenu && (
             <Box
               sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                width: 'fit-content',
+                gap: "5px",
                 position: "absolute",
                 bottom: "280px",
                 zIndex: 10
@@ -96,11 +106,10 @@ export default function PlayerCard({
               <Input
                 onChange={(e) => (playerPoints.current = +e.target.value)}
                 sx={{
-                  minHeight: 60,
+                  minHeight: 65,
                   "input::-webkit-outer-spin-button, input::-webkit-inner-spin-button":
                   {
                     "WebkitAppearance": "none",
-                    margin: 0,
                   },
                   "input[type=number]": {
                     "MozAppearance": "textfield",
@@ -111,6 +120,7 @@ export default function PlayerCard({
                 placeholder="Set Points"
                 endDecorator={
                   <Button
+                    size="lg"
                     onClick={() => {
                       setOpenContextMenu(false);
                       hubController.changeScore(indexOfPlace, playerPoints.current)
@@ -120,10 +130,13 @@ export default function PlayerCard({
                   </Button>
                 }
               />
+              <Button onClick={() => hubController.removePlace(indexOfPlace)}>Remove place</Button>
             </Box>
           )}
-          <AspectRatio minHeight={170} sx={{ minWidth: 170 }}>
-            <img src={defImg} loading="lazy" alt="" />
+          <AspectRatio minHeight={170} sx={{ minWidth: "180px", borderRadius: "5px", }}>
+            <img src={imgId === '' ? DefaultUserImage : `${import.meta.env.VITE_API}/asset/profile/get/${imgId}`}
+              loading="lazy"
+              alt="" />
           </AspectRatio>
           <Box
             sx={{
@@ -177,7 +190,7 @@ export default function PlayerCard({
                 position: "absolute",
                 p: 0,
                 height: 170,
-                width: 170,
+                width: "180px",
                 ":hover": { backgroundColor: "rgba(187, 222, 251, 0.3)" },
               }}
               component="label"

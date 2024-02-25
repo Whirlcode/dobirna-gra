@@ -1,4 +1,4 @@
-import { Box, Button, Card } from "@mui/joy";
+import { Box, Button, Card, Typography } from "@mui/joy";
 import ExtendedInput from "@app/components/base/ExtendedInput";
 import { ChangeEvent, useRef } from "react";
 import PlayerCountInput from "@app/components/entryComponents/PlayerCountInput";
@@ -27,7 +27,7 @@ export default function CreateLobbyTab() {
     roomName.current = event.target.value
   }
 
-  function onChangeName(event : ChangeEvent<{value: string}>){
+  function onChangeName(event: ChangeEvent<{ value: string }>) {
     playerName.current = event.target.value
   }
 
@@ -43,33 +43,51 @@ export default function CreateLobbyTab() {
         }}
       >
         <Box
-          sx={{
+          sx={theme => ({
             display: "flex",
+            flexDirection: 'column',
             alignItems: "center",
             gap: "16px",
-            width: "100%",
-          }}
+            p: '15px 140px',
+            border: `2px solid ${theme.vars.palette.neutral[800]}`,
+            borderRadius: 'lg'
+          })}
         >
+          <Typography
+            fontWeight={500}
+            level="body-sm"
+            sx={{ position: 'absolute', left: '5%' }}>
+            Profile settings
+          </Typography>
           <UploadImgButton />
-          <ExtendedInput label="Name" placeholder="John Doe" onChange={onChangeName}/>
+          <ExtendedInput label="Name" placeholder="John Doe" onChange={onChangeName} />
         </Box>
         <Box
-          sx={{
-            margin: "15px 0px",
+          sx={theme => ({
             display: "flex",
-            flexDirection: "column",
-            gap: "15px",
-            maxWidth: "50%",
-          }}
+            flexDirection: 'column',
+            alignItems: "center",
+            gap: "16px",
+            p: '15px 140px',
+            border: `2px solid ${theme.vars.palette.neutral[800]}`,
+            borderRadius: 'lg'
+          })}
         >
+          <Typography
+            fontWeight={500}
+            level="body-sm"
+            sx={{ position: 'absolute', left: '5%' }}>
+            Lobby settings
+          </Typography>
           <ExtendedInput label="Name room" placeholder="Name room" sx={{ minHeight: 60 }} type="text" onChange={onChangeRoomName} />
           <PlayerCountInput refValue={playerCount} maxValue={10} />
           <Button
             sx={{
               ":hover": {
-                backgroundColor: "rgba(231, 231, 231, 0.33)",
+                backgroundColor: "rgba(79, 79, 79, 0.3)",
               },
               minHeight: 60,
+              width: '100%'
             }}
             component="label"
             role={undefined}
@@ -81,16 +99,22 @@ export default function CreateLobbyTab() {
               type="file"
               onChange={() => console.log("You choosed a pack")}
             />
-            Choose pack file
+            <Typography>Upload pack file</Typography>
           </Button>
         </Box>
         <Button
-          sx={{ display: "flex" }}
+          sx={{ display: "flex", minHeight: 40 }}
           onClick={() => {
             hubController.createLobby(roomName.current, playerCount.current, playerName.current);
           }}
         >
-          Create new room
+          <Typography
+            level="title-md"
+            sx={theme => ({ color: theme.vars.palette.common.black })}
+            fontWeight={500}
+          >
+            Create new room
+          </Typography>
         </Button>
       </Card>
     </>

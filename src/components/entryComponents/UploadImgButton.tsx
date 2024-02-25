@@ -1,7 +1,6 @@
 import { useAppSelector } from "@app/Store";
-import { AspectRatio, Box, Button, styled } from "@mui/joy";
+import { AspectRatio, Box, Button, Typography, styled } from "@mui/joy";
 import { useState } from "react";
-import UploadImagePlaceholder from "@app/assets/48af63.svg";
 const VisuallyHiddenInput = styled("input")`
   height: 1px;
   width: 1px;
@@ -14,7 +13,7 @@ const VisuallyHiddenInput = styled("input")`
 
 export default function UploadImgButton() {
   const me = useAppSelector(s => s.gameState.me)
-  const [userImg, setUserImg] = useState<string>(UploadImagePlaceholder);
+  const [userImg, setUserImg] = useState<string>('');
 
   const handleImageChange = async (files: FileList | null) => {
     if (files === null) return;
@@ -32,18 +31,14 @@ export default function UploadImgButton() {
 
   return (
     <>
-      <Box
-        sx={{
-          minWidth: "280px",
-        }}
-      >
+      <Box sx={{ width: "200px", height: '200px' }}>
         <Button
           sx={{
+            width: "200px",
+            height: "200px",
             p: 0,
             position: "absolute",
             zIndex: 5,
-            height: 300,
-            width: "280px",
             ":hover": { backgroundColor: "rgba(79, 79, 79, 0.3)" },
           }}
           component="label"
@@ -57,12 +52,19 @@ export default function UploadImgButton() {
             onChange={(e) => handleImageChange(e.target.files)}
           />
         </Button>
-        <AspectRatio minHeight={300}>
-          <img
-            style={{ maxHeight: 300, maxWidth: "280px" }}
-            src={userImg}
-            alt="image not found"
-          />
+        <AspectRatio minHeight={200} variant="plain">
+          {userImg === ''
+            ?
+            <Typography
+              level="h4"
+              fontWeight={500}>Upload your image</Typography>
+            :
+            <img
+              style={{ width: "200px", height: "200px" }}
+              src={userImg}
+              alt="image not found"
+            />
+          }
         </AspectRatio>
       </Box>
     </>

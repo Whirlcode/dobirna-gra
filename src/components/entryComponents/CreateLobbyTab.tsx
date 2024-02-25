@@ -1,7 +1,7 @@
 import { Box, Button, Card, Input, Typography } from "@mui/joy";
-import FloatingInput from "@app/components/entryComponents/FloatingInput";
+import ExtendedInput from "@app/components/base/ExtendedInput";
 import { ChangeEvent, useState, useRef } from "react";
-import InputWithoutArrows from "./InputWithoutArrows";
+import InputNoArrows from "@app/components/base/InputNoArrows";
 
 import { styled } from "@mui/joy";
 import UploadImgButton from "./UploadImgButton";
@@ -51,7 +51,7 @@ export default function CreateLobbyTab() {
           }}
         >
           <UploadImgButton />
-          <FloatingInput label="Name" placeholder="John Doe" onChange={onChangeName}/>
+          <ExtendedInput label="Name" placeholder="John Doe" onChange={onChangeName}/>
         </Box>
         <Box
           sx={{
@@ -62,8 +62,8 @@ export default function CreateLobbyTab() {
             maxWidth: "50%",
           }}
         >
-          <Input sx={{ minHeight: 60 }} type="text" placeholder="Name room" onChange={onChangeRoomName} />
-          <InputWithoutArrows count={playerCount} setCount={setPlayerCount} />
+          <ExtendedInput label="Name room" placeholder="Name room" sx={{ minHeight: 60 }} type="text" onChange={onChangeRoomName} />
+          <InputNoArrows count={playerCount} setCount={setPlayerCount} />
           {playerCount > 10 && (
             <Typography
               sx={{ padding: "10px, 0px ,10px, 0px" }}

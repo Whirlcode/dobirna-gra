@@ -28,10 +28,8 @@ export default function PlayersLayout() {
                 key={user.UserId}
                 initialVal={60000}
                 step={900}
-                playerName={user.UserName}
                 indexOfPlace={idx}
-                scoreOfPlace={user.Score}
-                imgId={user.ImageId}
+                user={user}
               />
               :
               <EmptyPlayerPlace key={user.UserId} seatIdx={idx} />

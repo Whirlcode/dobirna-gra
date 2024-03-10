@@ -14,28 +14,28 @@ import {
 import { useEffect, useRef, useState } from "react";
 import hubController from "@app/SignalR/HubController";
 import DefaultUserImage from '@app/assets/maxresdefault.jpg'
+import { PlayerPlaceData } from "@app/SignalR/MessageTypes";
 
 type TPlayerCardData = {
   initialVal: number;
   step: number;
-  playerName: string;
-  scoreOfPlace: number;
   indexOfPlace: number;
-  imgId: string;
+  user: PlayerPlaceData
 }
 
 export default function PlayerCard({
   initialVal,
   step,
-  playerName,
-  scoreOfPlace,
   indexOfPlace,
-  imgId
+  user
 }: TPlayerCardData) {
   const [milisec, setMilisec] = useState(initialVal);
   const [openContextMenu, setOpenContextMenu] = useState(false);
   const amMaster = useAppSelector((s) => s.gameState.amMaster);
+  const gameState = useAppSelector((s) => s.gameState.gameState)
   const playerPoints = useRef<number>(0);
+
+  const isReady = gameState?.ReadyUsers.includes(user?.UserId)
 
   const converter = (curr: number, targ: number) => {
     return (1 - curr / targ) * 100;
@@ -77,7 +77,7 @@ export default function PlayerCard({
         }
       >
         <Card
-          sx={{
+          sx={theme => ({
             display: "flex",
             minWidth: "190px",
             maxWidth: "190px",
@@ -87,8 +87,9 @@ export default function PlayerCard({
             borderRadius: "5px",
             gap: 0,
             border: 0,
-            ...(openContextMenu && { boxShadow: "0px 0px 20px 10px aqua" }),
-          }}
+            ...(openContextMenu && { boxShadow: `0px 0px 20px ${theme.vars.palette.danger[500]}` }),
+            ...(isReady && { outline: `4px solid ${theme.vars.palette.success[600]}` }),
+          })}
         >
           {openContextMenu && (
             <Box
@@ -134,7 +135,7 @@ export default function PlayerCard({
             </Box>
           )}
           <AspectRatio minHeight={170} sx={{ minWidth: "180px", borderRadius: "5px", }}>
-            <img src={imgId === '' ? DefaultUserImage : `${import.meta.env.VITE_API}/asset/profile/get/${imgId}`}
+            <img src={user.ImageId === '' ? DefaultUserImage : `${import.meta.env.VITE_API}/asset/profile/get/${user.ImageId}`}
               loading="lazy"
               alt="" />
           </AspectRatio>
@@ -146,7 +147,7 @@ export default function PlayerCard({
               width: "100%",
             }}
           >
-            <Tooltip title={playerName} size="md">
+            <Tooltip title={user.UserName} size="md">
               <Typography
                 variant="plain"
                 sx={{
@@ -159,7 +160,7 @@ export default function PlayerCard({
                   fontWeight: "700",
                 }}
               >
-                {playerName}
+                {user.UserName}
               </Typography>
             </Tooltip>
 
@@ -180,7 +181,7 @@ export default function PlayerCard({
                 maxWidth: 250,
               }}
             >
-              {scoreOfPlace}
+              {user.Score}
             </Typography>
           </Box>
           {amMaster &&

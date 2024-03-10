@@ -1,8 +1,14 @@
-import { Button } from "@mui/joy";
+import hubController from "@app/SignalR/HubController";
+import { Button, Typography } from "@mui/joy";
 
 export default function ReadyORStartBtn({ text }: { text: string }) {
+    const handleReadyStartClick = () => {
+        hubController.interact()
+    }
+
     return (
         <Button
+            onClick={handleReadyStartClick}
             variant="soft"
             color="neutral"
             sx={{
@@ -13,7 +19,7 @@ export default function ReadyORStartBtn({ text }: { text: string }) {
                     backgroundColor: "rgb(209, 209, 209)",
                 }
             }}>
-            <h1 style={{ fontWeight: '900', }}>{text}</h1>
+            <Typography level="h1">{text}</Typography>
         </Button>
     )
 }

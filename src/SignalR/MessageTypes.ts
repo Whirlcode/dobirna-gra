@@ -10,6 +10,11 @@ export enum ProfileAction {
     Logout = "Logout",
 }
 
+export enum GameStateAction {
+    Entered = "Entered",
+    Updated = "Updated"
+}
+
 export type CreateLobbyAction = {
     NameLobby: string
     UserName: string
@@ -56,3 +61,13 @@ export type LobbyData = {
     Places: PlayerPlaceData[]
     Master: MasterData
 }
+
+export type BaseStateData = {
+    Type: string
+}
+
+export type IdleStateData = BaseStateData & {
+    ReadyUsers: string[]
+}
+
+export type StateData = BaseStateData & IdleStateData

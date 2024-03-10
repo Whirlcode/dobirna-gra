@@ -1,8 +1,23 @@
 import hubServer, { IHubObserver } from "@app/SignalR/HubServer";
-import { ProfileData, LobbyData, LobbyAction, ProfileAction } from "@app/SignalR/MessageTypes";
+
+import { 
+    ProfileData,
+    LobbyData,
+    LobbyAction,
+    ProfileAction,
+    StateData,
+    GameStateAction
+} from "@app/SignalR/MessageTypes";
 
 import appStore from "@app/Store"
-import { ConnectionState, updateConnectionStatus, updateLobby, updateProfileId } from "@app/features/gameState/gameStateSlice";
+
+import { 
+    ConnectionState,
+    updateConnectionStatus,
+    updateLobby,
+    updateProfileId,
+    updateGameState
+} from "@app/features/gameState/gameStateSlice";
 
 class Handler implements IHubObserver {
     constructor() {
@@ -18,6 +33,10 @@ class Handler implements IHubObserver {
     onLobbyChanged(_ : LobbyAction, lobbyData: LobbyData): void {
         appStore.dispatch(updateLobby(lobbyData))
     }
+
+    onGameStateChanged(_: GameStateAction, stateData: StateData): void {
+        appStore.dispatch(updateGameState(stateData))
+   }
 
     onServerError(error: string): void {
         console.error(error)
@@ -82,6 +101,10 @@ class HubControllerImpl {
 
     async changeScore(targetPalceIndex: number, newScore: number){
         await hubServer.changeScoreAsync(targetPalceIndex, newScore);
+    }
+
+    async interact() {
+        await hubServer.interact();
     }
 }
 

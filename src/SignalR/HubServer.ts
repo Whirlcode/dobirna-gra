@@ -8,12 +8,15 @@ import {
     JoinLobbyAction,
     ChangeScoreAction,
     LobbyAction,
-    ProfileAction
+    ProfileAction,
+    GameStateAction,
+    StateData
 } from "@app/SignalR/MessageTypes"
 
 export interface IHubObserver {
     onProfileChanged(action: ProfileAction, me: ProfileData): void,
     onLobbyChanged(action: LobbyAction, lobbyData: LobbyData): void
+    onGameStateChanged(action: GameStateAction, stateData: StateData): void
     onServerError(error: string): void
 }
 
@@ -38,6 +41,8 @@ export interface IHubServer {
     setNumberPlacesAsync(value: number): Promise<void>
     removePlaceAsync(index: number): Promise<void>
     changeScoreAsync(targetPalceIndex: number, newScore: number): Promise<void>
+
+    interact() : Promise<void>
 }
 
 class HubServerImpl implements IHubServer {
@@ -76,12 +81,14 @@ class HubServerImpl implements IHubServer {
     subscribe(listiner: IHubObserver): void {
         this.connection.on("OnProfileChanged", listiner.onProfileChanged);
         this.connection.on("OnLobbyChanged", listiner.onLobbyChanged);
+        this.connection.on("OnGameStateChanged", listiner.onGameStateChanged);
         this.connection.on("OnServerError", listiner.onServerError);
     }
 
     unsubscribe(listiner: IHubObserver): void {
         this.connection.off("OnProfileChanged", listiner.onProfileChanged);
         this.connection.off("OnLobbyChanged", listiner.onLobbyChanged);
+        this.connection.off("OnGameStateChanged", listiner.onGameStateChanged);
         this.connection.off("OnServerError", listiner.onServerError);
     }
 
@@ -135,6 +142,10 @@ class HubServerImpl implements IHubServer {
             TargetPlaceIndex: targetPalceIndex,
             NewScore: newScore
         } as ChangeScoreAction);
+    }
+
+    async interact(): Promise<void> {
+        await this.connection.send("Interact");
     }
 }
 

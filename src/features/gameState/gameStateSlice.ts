@@ -14,7 +14,7 @@ export type GameClientState = {
     me: string,
     amMaster: boolean,
     lobby: LobbyData | null,
-    gameState: IStateData | null,
+    currentState: IStateData | null,
     connectionState: ConnectionState
 }
 
@@ -22,7 +22,7 @@ const initialState = {
     me: '',
     amMaster: false,
     lobby: null,
-    gameState: null,
+    currentState: null,
     connectionState: ConnectionState.DISCONNECTED
 } as GameClientState;
 
@@ -41,7 +41,7 @@ const gameStateSlice = createSlice({
             state.amMaster = state.me === state.lobby?.Master.UserId
         },
         updateGameState(state, action: PayloadAction<IStateData | null>) {
-            state.gameState = action.payload
+            state.currentState = action.payload
         }
     }
 })

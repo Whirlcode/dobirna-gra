@@ -32,7 +32,7 @@ export default function PlayerCard({
   const [milisec, setMilisec] = useState(initialVal);
   const [openContextMenu, setOpenContextMenu] = useState(false);
   const amMaster = useAppSelector((s) => s.gameState.amMaster);
-  const gameState = useAppSelector((s) => s.gameState.gameState)
+  const gameState = useAppSelector((s) => s.gameState.currentState)
   const playerPoints = useRef<number>(0);
 
   const isReady = gameState?.ReadyUsers.includes(user?.UserId)

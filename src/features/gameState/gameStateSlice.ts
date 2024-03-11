@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import {
     LobbyData,
-    StateData
+    IStateData
 } from "@app/SignalR/MessageTypes"
 
 export enum ConnectionState {
@@ -14,7 +14,7 @@ export type GameClientState = {
     me: string,
     amMaster: boolean,
     lobby: LobbyData | null,
-    gameState: StateData | null,
+    currentState: IStateData | null,
     connectionState: ConnectionState
 }
 
@@ -22,7 +22,7 @@ const initialState = {
     me: '',
     amMaster: false,
     lobby: null,
-    gameState: null,
+    currentState: null,
     connectionState: ConnectionState.DISCONNECTED
 } as GameClientState;
 
@@ -40,8 +40,8 @@ const gameStateSlice = createSlice({
             state.lobby = action.payload
             state.amMaster = state.me === state.lobby?.Master.UserId
         },
-        updateGameState(state, action: PayloadAction<StateData | null>) {
-            state.gameState = action.payload
+        updateGameState(state, action: PayloadAction<IStateData | null>) {
+            state.currentState = action.payload
         }
     }
 })

@@ -62,12 +62,19 @@ export type LobbyData = {
     Master: MasterData
 }
 
-export type BaseStateData = {
-    Type: string
+export abstract class IStateData {
+    abstract Type: string
 }
 
-export type IdleStateData = BaseStateData & {
-    ReadyUsers: string[]
+export abstract class IdleStateData extends IStateData {
+    public static getType(): string { return "idle" }
+
+    abstract ReadyUsers: string[]
 }
 
-export type StateData = BaseStateData & IdleStateData
+export abstract class RoundStateData extends IStateData {
+    public static getType(): string { return "round" }
+
+    abstract Questions: { [key: string]: number[] }
+    abstract Electioneer: string
+}

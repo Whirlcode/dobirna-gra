@@ -19,7 +19,7 @@ export type GameClientState = {
 }
 
 const initialState = {
-    me: {},
+    me: '',
     amMaster: false,
     lobby: null,
     gameState: null,
@@ -46,7 +46,7 @@ const gameStateSlice = createSlice({
     }
 })
 
-export const { 
+export const {
     updateConnectionStatus,
     updateProfileId,
     updateLobby,

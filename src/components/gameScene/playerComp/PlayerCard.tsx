@@ -14,7 +14,8 @@ import {
 import { useEffect, useRef, useState } from "react";
 import hubController from "@app/SignalR/HubController";
 import DefaultUserImage from '@app/assets/maxresdefault.jpg'
-import { PlayerPlaceData } from "@app/SignalR/MessageTypes";
+
+import { IdleStateData, PlayerPlaceData, RoundStateData } from "@app/SignalR/MessageTypes";
 
 type TPlayerCardData = {
   initialVal: number;
@@ -32,10 +33,23 @@ export default function PlayerCard({
   const [milisec, setMilisec] = useState(initialVal);
   const [openContextMenu, setOpenContextMenu] = useState(false);
   const amMaster = useAppSelector((s) => s.gameState.amMaster);
-  const gameState = useAppSelector((s) => s.gameState.currentState)
+  const currentState = useAppSelector((s) => s.gameState.currentState)
   const playerPoints = useRef<number>(0);
 
-  const isReady = gameState?.ReadyUsers.includes(user?.UserId)
+  let highlightingOn = false;
+
+  if(currentState?.Type == IdleStateData.getType())
+  {
+    const state = currentState as IdleStateData;
+    const isReady = state.ReadyUsers.includes(user?.UserId)
+    highlightingOn = isReady;
+  }
+
+  if(currentState?.Type == RoundStateData.getType())
+  {
+    const state = currentState as RoundStateData;
+    highlightingOn = state.Electioneer == user?.UserId;
+  }
 
   const converter = (curr: number, targ: number) => {
     return (1 - curr / targ) * 100;
@@ -88,7 +102,7 @@ export default function PlayerCard({
             gap: 0,
             border: 0,
             ...(openContextMenu && { boxShadow: `0px 0px 20px ${theme.vars.palette.danger[500]}` }),
-            ...(isReady && { outline: `4px solid ${theme.vars.palette.success[600]}` }),
+            ...(highlightingOn && { outline: `4px solid ${theme.vars.palette.success[600]}` }),
           })}
         >
           {openContextMenu && (

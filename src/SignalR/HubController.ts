@@ -5,7 +5,7 @@ import {
     LobbyData,
     LobbyAction,
     ProfileAction,
-    StateData,
+    IStateData,
     GameStateAction
 } from "@app/SignalR/MessageTypes";
 
@@ -34,7 +34,7 @@ class Handler implements IHubObserver {
         appStore.dispatch(updateLobby(lobbyData))
     }
 
-    onGameStateChanged(_: GameStateAction, stateData: StateData): void {
+    onGameStateChanged(_: GameStateAction, stateData: IStateData): void {
         appStore.dispatch(updateGameState(stateData))
    }
 

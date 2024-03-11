@@ -10,13 +10,13 @@ import {
     LobbyAction,
     ProfileAction,
     GameStateAction,
-    StateData
+    IStateData
 } from "@app/SignalR/MessageTypes"
 
 export interface IHubObserver {
     onProfileChanged(action: ProfileAction, me: ProfileData): void,
     onLobbyChanged(action: LobbyAction, lobbyData: LobbyData): void
-    onGameStateChanged(action: GameStateAction, stateData: StateData): void
+    onGameStateChanged(action: GameStateAction, stateData: IStateData): void
     onServerError(error: string): void
 }
 

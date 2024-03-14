@@ -5,13 +5,13 @@ import {
   Box,
   Button,
   Card,
-  // CircularProgress,
+  CircularProgress,
   Divider,
   Input,
   Tooltip,
   Typography,
 } from "@mui/joy";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import hubController from "@app/SignalR/HubController";
 import DefaultUserImage from '@app/assets/maxresdefault.jpg'
 
@@ -25,12 +25,12 @@ type TPlayerCardData = {
 }
 
 export default function PlayerCard({
-  // initialVal,
-  // step,
+  initialVal,
+  step,
   indexOfPlace,
   user
 }: TPlayerCardData) {
-  // const [milisec, setMilisec] = useState(initialVal);
+  const [milisec, setMilisec] = useState(initialVal);
   const [openContextMenu, setOpenContextMenu] = useState(false);
   const amMaster = useAppSelector((s) => s.gameState.amMaster);
   const currentState = useAppSelector((s) => s.gameState.currentState)
@@ -49,19 +49,19 @@ export default function PlayerCard({
     highlightingOn = state.Electioneer == user?.UserId;
   }
 
-  // const converter = (curr: number, targ: number) => {
-  //   return (1 - curr / targ) * 100;
-  // };
+  const converter = (curr: number, targ: number) => {
+    return (1 - curr / targ) * 100;
+  };
 
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     setMilisec((prev) => (prev <= 0 ? initialVal : prev - step));
-  //   }, step);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setMilisec((prev) => (prev <= 0 ? initialVal : prev - step));
+    }, step);
 
-  //   return () => {
-  //     clearInterval(timer);
-  //   };
-  // });
+    return () => {
+      clearInterval(timer);
+    };
+  });
 
   return (
     <>
@@ -75,18 +75,18 @@ export default function PlayerCard({
             boxShadow: "none",
           },
         }}
-      // badgeContent={
-      //   <CircularProgress
-      //     determinate
-      //     value={converter(milisec, initialVal)}
-      //     size="lg"
-      //     sx={{
-      //       "--CircularProgress-size": "80px",
-      //       "--CircularProgress-trackThickness": "14px",
-      //       "--CircularProgress-progressThickness": "5px",
-      //     }}
-      //   />
-      // }
+        badgeContent={
+          <CircularProgress
+            determinate
+            value={converter(milisec, initialVal)}
+            size="lg"
+            sx={{
+              "--CircularProgress-size": "80px",
+              "--CircularProgress-trackThickness": "14px",
+              "--CircularProgress-progressThickness": "5px",
+            }}
+          />
+        }
       >
         <Card
           sx={theme => ({

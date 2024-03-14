@@ -46,8 +46,8 @@ export default function RaundThemes(props: RaundProps) {
         variant="plain"
       >
         <tbody>
-          {themes.map((theme) => (
-            <tr key={Math.floor(Math.random() * 99999)}>
+          {themes.map((theme, idx) => (
+            <tr key={`themes-${idx}`}>
               <td>
                 <Typography
                   sx={theme => ({

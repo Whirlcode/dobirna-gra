@@ -25,12 +25,17 @@ export default function AnimatedScrollForThemes(props: TestingPros) {
     themes.push(theme)
   }
 
+  const speed = 100
+  const heightItem = 180
+  const durationPerItem = heightItem / speed;
+  const totalDurationMs = themes.length * durationPerItem * 1000
+
   useEffect(() => {
     const t = setTimeout(() => {
       props.changeIdx()
-    }, themes.length * 1500)
+    }, totalDurationMs)
     return () => { clearTimeout(t) }
-  }, [props, themes.length])
+  }, [props, themes.length, totalDurationMs])
 
   return (
     <Box
@@ -42,14 +47,14 @@ export default function AnimatedScrollForThemes(props: TestingPros) {
         gap: 3
       }}
     >
-      {themes.map((item) => {
+      {themes.map((item, idx) => {
         return (
           <Typography
             sx={{
               position: 'relative',
-              animation: `${breatheAnimation} ${themes.length * 2}s linear both`,
+              animation: `${breatheAnimation} ${totalDurationMs}ms linear both`,
             }}
-            key={Math.floor(Math.random() * 99999)}
+            key={`single-theme-${idx}`}
             color="primary"
             fontWeight={700}
             fontSize={48}

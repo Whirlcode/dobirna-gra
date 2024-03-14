@@ -1,123 +1,69 @@
-import { Box, Typography } from "@mui/joy";
+import { RoundStateData } from "@app/SignalR/MessageTypes";
+import { Box, Table, Typography } from "@mui/joy";
+import TableOfQuestions from "@app/components/gameScene/TableOfQuestions";
+import { keyframes } from "@mui/styled-engine";
 
-export default function RoundThemes() {
-  const numberOfRound = "1";
-  const mockThems = [
-    {
-      id: 1,
-      title: "Randome questions",
-    },
-    {
-      id: 2,
-      title: "Cars",
-    },
-    {
-      id: 3,
-      title: "Flowers",
-    },
-    {
-      id: 4,
-      title: "Movies",
-    },
-    {
-      id: 5,
-      title: "Sports",
-    },
-    {
-      id: 6,
-      title: "Flags",
-    },
-    {
-      id: 7,
-      title: "History",
-    },
-    {
-      id: 11,
-      title: "Randome questions",
-    },
-    {
-      id: 22,
-      title: "Cars",
-    },
-    {
-      id: 33,
-      title: "Flowers",
-    },
-    {
-      id: 44,
-      title: "Movies",
-    },
-    {
-      id: 55,
-      title: "Sports",
-    },
-    {
-      id: 66,
-      title: "Flags",
-    },
-    {
-      id: 77,
-      title: "History",
-    },
-  ];
+type RaundProps = {
+  raundQuestions: RoundStateData['Questions']
+}
+
+const slideTable = keyframes`
+ 0% {
+  transform: translateZ(600px);
+  opacity: 0;
+  }
+ 100% {
+  transform: translateZ(0);
+  opacity: 1;
+  }
+`
+
+export default function RaundThemes(props: RaundProps) {
+
+  const themes: string[] = []
+
+  for (const theme in props.raundQuestions) {
+    themes.push(theme)
+  }
+
   return (
     <Box
       sx={{
+        animation: `${slideTable} 2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both`,
         display: "flex",
         flexDirection: "column",
         height: "100%",
         width: "100%",
       }}
     >
-      <Box>
-        <Typography
-          padding={0}
-          textAlign={"center"}
-          color="primary"
-          fontWeight={"700"}
-          fontSize={"3vw"}
-          variant="plain"
-        >
-          {numberOfRound} Round
-        </Typography>
-      </Box>
-      <Box>
-        <Typography
-          padding={0}
-          textAlign={"center"}
-          color="primary"
-          fontWeight={"500"}
-          fontSize={"1.5vw"}
-          variant="plain"
-        >
-          Themes:
-        </Typography>
-      </Box>
-      <Box
+      <Table
         sx={{
-          display: "flex",
-          marginTop: "2vh",
-          px: "50px",
-          flexDirection: "column",
-          flexWrap: "wrap",
-          maxHeight: "450px",
+          '& tr > *:not(:first-of-type)': { textAlign: 'center' },
+          height: '100%'
         }}
+        borderAxis="bothBetween"
+        size="lg"
+        variant="plain"
       >
-        {mockThems.map((theme) => {
-          return (
-            <Typography
-              color="success"
-              fontWeight={600}
-              fontSize={"1.5vw"}
-              key={theme.id}
-              textAlign={"center"}
-              width={"fit-content"}
-            >
-              - {theme.title}
-            </Typography>
-          );
-        })}
-      </Box>
+        <tbody>
+          {themes.map((theme) => (
+            <tr key={Math.floor(Math.random() * 99999)}>
+              <td>
+                <Typography
+                  sx={theme => ({
+                    wordWrap: 'break-word',
+                    color: theme.vars.palette.primary.solidBg
+                  })}
+                  fontWeight={700}
+                  fontSize={'1.5vw'}
+                >
+                  {theme}
+                </Typography>
+              </td>
+              <TableOfQuestions theme={theme} />
+            </tr>
+          ))}
+        </tbody></Table>
     </Box>
   );
 }

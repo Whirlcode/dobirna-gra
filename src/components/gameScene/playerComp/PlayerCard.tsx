@@ -38,15 +38,13 @@ export default function PlayerCard({
 
   let highlightingOn = false;
 
-  if(currentState?.Type == IdleStateData.getType())
-  {
+  if (currentState?.Type == IdleStateData.getType()) {
     const state = currentState as IdleStateData;
     const isReady = state.ReadyUsers.includes(user?.UserId)
     highlightingOn = isReady;
   }
 
-  if(currentState?.Type == RoundStateData.getType())
-  {
+  if (currentState?.Type == RoundStateData.getType()) {
     const state = currentState as RoundStateData;
     highlightingOn = state.Electioneer == user?.UserId;
   }

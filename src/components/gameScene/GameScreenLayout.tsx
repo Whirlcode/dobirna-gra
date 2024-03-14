@@ -4,11 +4,13 @@ import BigAnswerButton from "@app/components/gameScene/shared/BigAnswerButton";
 import { useAppSelector } from "@app/Store";
 import EmptyAdminPlace from "@app/components/gameScene/gameMasterComp/EmptyAdminPlace";
 import IdleStageOfGame from "@app/components/gameScene/IdleStage.GameScreen";
+import { IdleStateData, RoundStateData } from "@app/SignalR/MessageTypes";
+import AnimationRaund from "@app/components/gameScene/animatedComp/AnimationRaund";
 
 export default function GameScreenLayout() {
-
-  const IsOccupiedMaster = useAppSelector((s) => s.gameState.lobby?.Master.IsOccupied)
-  const amMaster = useAppSelector((s) => s.gameState.amMaster)
+  const currentState = useAppSelector((s) => s.gameState.currentState);
+  const IsOccupiedMaster = useAppSelector((s) => s.gameState.lobby?.Master.IsOccupied);
+  const amMaster = useAppSelector((s) => s.gameState.amMaster);
 
   return (
     <Box sx={{ display: "flex", width: "100%", height: "60vh", flex: "1" }}>
@@ -39,7 +41,8 @@ export default function GameScreenLayout() {
           padding: "10px",
           borderRadius: 25,
         })}>
-        <IdleStageOfGame />
+        {currentState?.Type == IdleStateData.getType() && <IdleStageOfGame />}
+        {currentState?.Type == RoundStateData.getType() && <AnimationRaund />}
       </Box>
       <Box
         sx={{

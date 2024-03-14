@@ -7,7 +7,6 @@ export default function PlayersLayout() {
   const Places = useAppSelector(s => s.gameState.lobby?.Places)
   return (
     <Box
-      key={Math.floor(Math.random() * 9999)}
       sx={{
         display: "flex",
         justifyContent: "center",

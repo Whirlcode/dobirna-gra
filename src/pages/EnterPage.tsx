@@ -82,7 +82,7 @@ export default function EnterPage() {
         sx={{
           display: "flex",
           width: "100%",
-          position: 'fixed',
+          position: 'relative',
           top: "50px",
           borderRadius: "xs",
         }}

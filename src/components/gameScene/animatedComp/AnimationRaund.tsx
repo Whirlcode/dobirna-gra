@@ -5,7 +5,7 @@ import AnimationRaundWrapper from "@app/components/gameScene/animatedComp/Animat
 import NameAndNumberOfRaund from "@app/components/gameScene/animatedComp/NameAndNumberOfRaund";
 import { useAppSelector } from "@app/Store";
 import { RoundStateData } from "@app/SignalR/MessageTypes";
-import ThemesOfRaundText from "./ThemesOfRaundText";
+import ThemesOfRaundText from "@app/components/gameScene/animatedComp/ThemesOfRaundText";
 
 export default function AnimationRaund() {
     const currentState = useAppSelector((s) => s.gameState.currentState)

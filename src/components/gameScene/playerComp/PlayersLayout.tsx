@@ -25,8 +25,6 @@ export default function PlayersLayout() {
               ?
               <PlayerCard
                 key={user.UserId}
-                initialVal={60000}
-                step={900}
                 indexOfPlace={idx}
                 user={user}
               />

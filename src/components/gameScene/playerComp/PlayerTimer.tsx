@@ -17,7 +17,6 @@ export default function PlayerTimer(props: TPLayerTimerProps) {
             setMilisec((prev) => (prev <= 0 ? props.initialVal : prev - props.step));
         }, props.step);
 
-        console.log()
         return () => {
             clearInterval(timer);
         };

@@ -7,11 +7,13 @@ import {
 } from "react-redux";
 import notificationSlice from "@app/features/notifications/notificationSlice";
 import gameStateSlice from "@app/features/gameState/gameStateSlice"
+import timerStateSlice from "@app/features/timerState/timerStateSlice";
 
 export const appStore = configureStore({
   reducer: {
     notification: notificationSlice,
-    gameState: gameStateSlice
+    gameState: gameStateSlice,
+    timeState: timerStateSlice
   },
 });
 

@@ -14,22 +14,22 @@ import hubController from "@app/SignalR/HubController";
 import DefaultUserImage from '@app/assets/maxresdefault.jpg'
 
 import { IdleStateData, PlayerPlaceData, RoundStateData } from "@app/SignalR/MessageTypes";
+import PlayerTimer from "./PlayerTimer";
 
 type TPlayerCardData = {
   indexOfPlace: number;
   user: PlayerPlaceData
 }
 
-export default function PlayerCard({
-  indexOfPlace,
-  user
-}: TPlayerCardData) {
+export default function PlayerCard({ indexOfPlace, user }: TPlayerCardData) {
   const [openContextMenu, setOpenContextMenu] = useState(false);
   const amMaster = useAppSelector((s) => s.gameState.amMaster);
-  const currentState = useAppSelector((s) => s.gameState.currentState)
+  const currentState = useAppSelector((s) => s.gameState.currentState);
+  const showTimer = useAppSelector(s => s.timeState.showTimer);
   const playerPoints = useRef<number>(0);
 
   let highlightingOn = false;
+  let visibleTimer = false;
 
   if (currentState?.Type == IdleStateData.getType()) {
     const state = currentState as IdleStateData;
@@ -40,11 +40,13 @@ export default function PlayerCard({
   if (currentState?.Type == RoundStateData.getType()) {
     const state = currentState as RoundStateData;
     highlightingOn = state.Electioneer == user?.UserId;
+    if (state.Electioneer == user?.UserId && showTimer) {
+      visibleTimer = true
+    }
   }
 
   return (
     <>
-
       <Card
         sx={theme => ({
           display: "flex",
@@ -60,6 +62,7 @@ export default function PlayerCard({
           ...(highlightingOn && { outline: `4px solid ${theme.vars.palette.success[600]}` }),
         })}
       >
+        {visibleTimer && <PlayerTimer initialVal={60000} step={100} />}
         {openContextMenu && (
           <Box
             sx={{
